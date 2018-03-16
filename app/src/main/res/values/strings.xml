@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">GoCart</string>
+
+    <string name="menu_shopping_list">List</string>
+    <string name="menu_grocery_search">Search</string>
+    <string name="menu_stores">Stores</string>
+
+    <string name="list_heading_checked_items">Checked Items:</string>
+    <string name="list_heading_unchecked_items">Shopping List:</string>
+
+    <string name="search_input_heading">Search:</string>
+</resources>

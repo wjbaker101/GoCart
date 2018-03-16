@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.wjbaker.gocart">
+
+    <!--
+        Allow use of the internet.
+        Enables app to request the Tesco API.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--
+            Activity for the main screen.
+            Displays the user's shopping list.
+        -->
+        <activity
+            android:name=".ui.activities.MainActivity"
+            android:label="@string/app_name">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+        <!--
+            Activity for the search screen.
+            Allows the user to search for specific Tesco products.
+        -->
+        <activity
+            android:name=".ui.activities.SearchActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateVisible|adjustPan">
+
+        </activity>
+
+    </application>
+
+</manifest>

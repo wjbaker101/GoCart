@@ -1,0 +1,77 @@
+package com.wjbaker.gocart.shopping;
+
+/**
+ * Created by William on 14/03/2018.
+ *
+ * Stores the various information about a specific Tesco product.
+ */
+public class Product
+{
+    private int tpnb;
+
+    private String name;
+
+    private String description;
+
+    private float cost;
+
+    private float quantity;
+
+    private String superDepartment;
+
+    private String department;
+
+    private String imageURL;
+
+    public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL)
+    {
+        this.tpnb = tpnb;
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+        this.quantity = quantity;
+        this.superDepartment = superDepartment;
+        this.department = department;
+        this.imageURL = imageURL;
+    }
+
+    public int getTPNB()
+    {
+        return tpnb;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public float getCost()
+    {
+        return cost;
+    }
+
+    public float getQuantity()
+    {
+        return quantity;
+    }
+
+    public String getSuperDepartment()
+    {
+        return superDepartment;
+    }
+
+    public String getDepartment()
+    {
+        return department;
+    }
+
+    public String getImageURL()
+    {
+        return imageURL;
+    }
+}
