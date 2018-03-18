@@ -217,4 +217,22 @@ public class DatabaseStorage
 
         db.delete(ShoppingListTable.TABLE_NAME, condition, conditionArgs);
     }
+
+    /**
+     * Deletes a Product from the database with the given TPNB.
+     *
+     * @param tpnb The TPNB of the Product to delete.
+     */
+    public void deleteProduct(int tpnb)
+    {
+        SQLiteDatabase db = this.database.getWritableDatabase();
+
+        // Sets up the WHERE condition of the SQL statement
+        String condition = String.format(" %s = ?", ShoppingListTable.KEY_TPNB);
+
+        // Stores the values of the WHERE condition
+        String[] conditionArgs = { String.valueOf(tpnb) };
+
+        db.delete(ShoppingListTable.TABLE_NAME, condition, conditionArgs);
+    }
 }
