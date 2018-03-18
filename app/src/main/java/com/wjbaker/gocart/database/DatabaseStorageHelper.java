@@ -3,8 +3,10 @@ package com.wjbaker.gocart.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 
 import com.wjbaker.gocart.database.tables.ShoppingListTable;
+import com.wjbaker.gocart.shopping.ShoppingList;
 
 /**
  * Created by William on 17/03/2018.
@@ -31,7 +33,21 @@ public class DatabaseStorageHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase database)
     {
-        database.execSQL("");
+        String[] columnInformation =
+        {
+            String.format("%s INTEGER PRIMARY KEY", ShoppingListTable.KEY_TPNB),
+            String.format("%s TEXT", ShoppingListTable.KEY_NAME),
+            String.format("%s TEXT", ShoppingListTable.KEY_DESCRIPTION),
+            String.format("%s REAL", ShoppingListTable.KEY_COST),
+            String.format("%s REAL", ShoppingListTable.KEY_QUANTITY),
+            String.format("%s TEXT", ShoppingListTable.KEY_SUPER_DEPARTMENT),
+            String.format("%s TEXT", ShoppingListTable.KEY_DEPARTMENT),
+            String.format("%s TEXT", ShoppingListTable.KEY_IMAGE_URL),
+        };
+
+        String columns = TextUtils.join(", ", columnInformation);
+
+        database.execSQL(String.format("CREATE TABLE %s (%s)", ShoppingListTable.TABLE_NAME, columns));
     }
 
     @Override
