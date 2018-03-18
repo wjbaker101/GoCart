@@ -1,5 +1,9 @@
 package com.wjbaker.gocart.shopping;
 
+import android.content.Context;
+
+import com.wjbaker.gocart.database.DatabaseStorage;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,11 +13,45 @@ import java.util.List;
  */
 public class ShoppingList
 {
+    /**
+     * Stores the Products the user has currently selected in their shopping list.
+     */
     private HashMap<Integer, Product> items;
 
-    public ShoppingList()
+    /**
+     * Stores the context.<br>
+     * Allows it to be passed into the DatabaseStorage class.
+     */
+    private Context context;
+
+    /**
+     * First time the class is created, initialises the HashMap.<br>
+     * Adds database data into the HashMap.
+     *
+     * @param context Context to pass into the class.
+     */
+    public ShoppingList(Context context)
     {
         this.items = new HashMap<>();
+
+        this.context = context;
+
+        this.addInitialItems();
+    }
+
+    /**
+     * Adds the products found in the database when the HashMap is first created.
+     */
+    private void addInitialItems()
+    {
+        List<Product> productsFromDatabase = DatabaseStorage.query(this.context).getAllProducts();
+
+        // Loops through all products found in the database
+        // Adds the product to the shopping list
+        for (Product product : productsFromDatabase)
+        {
+            this.items.put(product.getTPNB(), product);
+        }
     }
 
     /**
@@ -30,21 +68,34 @@ public class ShoppingList
     /**
      * Adds a product to the shopping list, specifying its if.
      *
-     * @param product The Tesco product to add.
+     * @param product The Tesco Product to add.
      */
     public void addItem(Product product)
     {
+        // Checks whether the new Product is already inside the HashMap
+        // Adds or updates the Product in the database
+        if (this.items.containsKey(product.getTPNB()))
+        {
+            DatabaseStorage.query(this.context).updateProduct(product);
+        }
+        else
+        {
+            DatabaseStorage.query(this.context).addProduct(product);
+        }
+
         this.items.put(product.getTPNB(), product);
     }
 
     /**
      * Removes a product from the shopping list with the given id.
      *
-     * @param id TPNB number of the Tesco product.
+     * @param tpnb TPNB number of the Tesco product.
      */
-    public void removeItem(int id)
+    public void removeItem(int tpnb)
     {
-        this.items.remove(id);
+        DatabaseStorage.query(this.context).deleteProduct(tpnb);
+
+        this.items.remove(tpnb);
     }
 
     /**
@@ -79,11 +130,11 @@ public class ShoppingList
      *
      * @return The ShoppingList object.
      */
-    public static synchronized ShoppingList getInstance()
+    public static synchronized ShoppingList getInstance(Context context)
     {
         if (instance == null)
         {
-            instance = new ShoppingList();
+            instance = new ShoppingList(context);
         }
 
         return instance;
