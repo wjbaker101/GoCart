@@ -15,10 +15,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.wjbaker.gocart.R;
+import com.wjbaker.gocart.database.DatabaseStorage;
 import com.wjbaker.gocart.request.ProductSearchRequest;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
@@ -64,12 +66,16 @@ public class SearchActivity extends AppCompatActivity
      */
     private Response.ErrorListener onError;
 
+    /**
+     * Stores the textbox which the user will enter the product they would like to search for.
+     */
     private EditText searchTextBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_search);
 
         this.setupViews();
@@ -84,6 +90,8 @@ public class SearchActivity extends AppCompatActivity
      */
     private void setupViews()
     {
+        this.initNavigation();
+
         this.initProductContainer();
 
         this.searchTextBox = findViewById(R.id.textbox_search);
@@ -96,8 +104,21 @@ public class SearchActivity extends AppCompatActivity
         this.loadingIcon = findViewById(R.id.loading_icon);
         this.loadingIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         this.setLoading(false);
+    }
 
-        this.initNavigation();
+    /**
+     * Sets up the bottom navigation dashboard.<br>
+     * Sets the currently selected item to be search.
+     */
+    private void initNavigation()
+    {
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+
+        this.dashboardNavigation = new DashboardNavigation(this);
+
+        navigation.setSelectedItemId(R.id.navigation_search);
+
+        navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
     }
 
     private void initProductContainer()
@@ -115,21 +136,6 @@ public class SearchActivity extends AppCompatActivity
 
         this.searchProductAdapter = new SearchProductAdapter(list);
         this.productContainer.setAdapter(this.searchProductAdapter);
-    }
-
-    /**
-     * Sets up the bottom navigation dashboard.<br>
-     * Sets the currently selected item to be search.
-     */
-    private void initNavigation()
-    {
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-
-        this.dashboardNavigation = new DashboardNavigation(this);
-
-        navigation.setSelectedItemId(R.id.navigation_search);
-
-        navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
     }
 
     /**
@@ -172,7 +178,9 @@ public class SearchActivity extends AppCompatActivity
                 }
                 catch (Exception e)
                 {
-                    // Do nothing
+                    CharSequence message = "Unable to load products.";
+                    Toast errorMessage = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                    errorMessage.show();
                 }
 
                 return true;
@@ -221,12 +229,17 @@ public class SearchActivity extends AppCompatActivity
 
                         tpnb = product.getInt("tpnb");
                         name = product.getString("name");
-                        description = product.getJSONArray("description").toString();
+                        description = "";
                         cost = (float)product.getDouble("price");
                         quantity = (float)product.getDouble("ContentsQuantity");
                         superDepartment = product.getString("superDepartment");
                         department = product.getString("department");
                         imageURL = product.getString("image");
+
+                        if (product.has("description"))
+                        {
+                            description = product.getJSONArray("description").toString();
+                        }
 
                         newProduct = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL);
 
@@ -251,7 +264,9 @@ public class SearchActivity extends AppCompatActivity
                 // Indicate to the user that loading has finished
                 setLoading(false);
 
-                System.out.println("An Error Occurred!");
+                CharSequence message = "Unable to load products.";
+                Toast errorMessage = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                errorMessage.show();
             }
         };
     }

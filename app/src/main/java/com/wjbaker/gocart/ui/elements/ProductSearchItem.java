@@ -67,7 +67,7 @@ public class ProductSearchItem extends ProductItem
 
         canvas.drawLine(this.getWidth() - left, 0, this.getWidth() - left, this.getHeight(), this.darkGrey);
 
-        if (ShoppingList.getInstance().get(this.getBoundProduct().getTPNB()) == null)
+        if (ShoppingList.getInstance(this.getContext()).get(this.getBoundProduct().getTPNB()) == null)
         {
             canvas.drawLine(centreX - this.plusSize, centreY, centreX + this.plusSize, centreY, this.darkerGrey);
             canvas.drawLine(centreX, centreY - this.plusSize, centreX, centreY + this.plusSize, this.darkerGrey);
@@ -128,7 +128,7 @@ public class ProductSearchItem extends ProductItem
     {
         final int left = this.scaled((16 * 2) + (4 * 3) + 1);
 
-        if (!this.isTouchingAddButton || ShoppingList.getInstance().get(this.getBoundProduct().getTPNB()) != null) return true;
+        if (!this.isTouchingAddButton || ShoppingList.getInstance(this.getContext()).get(this.getBoundProduct().getTPNB()) != null) return true;
 
         if (x > this.getWidth() - left && x < this.getWidth())
         {
@@ -136,7 +136,7 @@ public class ProductSearchItem extends ProductItem
             {
                 this.isTouchingAddButton = false;
 
-                ShoppingList.getInstance().addItem(this.getBoundProduct());
+                ShoppingList.getInstance(this.getContext()).addItem(this.getBoundProduct());
 
                 this.invalidate();
             }

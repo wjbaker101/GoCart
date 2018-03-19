@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         this.initNavigation();
@@ -42,6 +41,12 @@ public class MainActivity extends AppCompatActivity
         this.initViews();
 
         this.displayUncheckedItems();
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
     }
 
     /**
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     private void displayUncheckedItems()
     {
-        final int size = ShoppingList.getInstance().size();
+        final int size = ShoppingList.getInstance(this).size();
 
         for (int i = 0; i < size; ++i)
         {
@@ -75,11 +80,11 @@ public class MainActivity extends AppCompatActivity
 
             item.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)(58 * scale)));
 
-            item.bindProduct(ShoppingList.getInstance().getProduct(i));
+            item.bindProduct(ShoppingList.getInstance(this).getProduct(i));
 
             this.uncheckedItemContainer.addView(item);
 
-            System.out.println(ShoppingList.getInstance().getProduct(i));
+            System.out.println(ShoppingList.getInstance(this).getProduct(i));
         }
 
         this.uncheckedItemContainer.requestLayout();
