@@ -1,20 +1,19 @@
 package com.wjbaker.gocart.ui.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
+import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
-import com.wjbaker.gocart.ui.elements.ShoppingListItem;
+import com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView;
+import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -74,7 +73,7 @@ public class MainActivity extends AppCompatActivity
 
         for (int i = 0; i < size; ++i)
         {
-            ShoppingListItem item = new ShoppingListItem(this, null);
+            /*ShoppingListItem item = new ShoppingListItem(this, null);
 
             final int scale = (int)(this.getResources().getDisplayMetrics().density);
 
@@ -82,9 +81,26 @@ public class MainActivity extends AppCompatActivity
 
             item.bindProduct(ShoppingList.getInstance(this).getProduct(i));
 
-            this.uncheckedItemContainer.addView(item);
+            this.uncheckedItemContainer.addView(item);*/
 
-            System.out.println(ShoppingList.getInstance(this).getProduct(i));
+            //System.out.println(ShoppingList.getInstance(this).getProduct(i));
+
+            View item = getLayoutInflater().inflate(R.layout.product_item_shopping, this.uncheckedItemContainer, false);
+
+            final Product product = ShoppingList.getInstance(this).getProduct(i);
+
+            TextView productName = item.findViewById(R.id.product_item_shopping_name);
+            //TextView productCost = item.findViewById(R.id.product_item_shopp_cost);
+            //final ImageView image = item.findViewById(R.id.product_item_search_image);
+
+            ProductItemShoppingView productItemView = item.findViewById(R.id.product_item_shopping_content);
+
+            productName.setText(product.getName());
+            //productCost.setText(String.format("£%.2f", product.getCost()));
+
+            productItemView.setProduct(product);
+
+            this.uncheckedItemContainer.addView(item);
         }
 
         this.uncheckedItemContainer.requestLayout();
