@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="product_item">
+        <attr name="tpnb" format="integer"></attr>
+    </declare-styleable>
+
 </resources>

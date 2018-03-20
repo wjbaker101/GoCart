@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView
+        android:id="@+id/product_item_search_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardElevation="2dp"
+        app:cardUseCompatPadding="true">
+
+        <!--
+            Layout for the contents of the product_item.
+        -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="12dp">
+
+                <ImageView
+                    android:id="@+id/product_item_search_image"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_centerInParent="true"/>
+
+                <TextView
+                    android:id="@+id/product_item_search_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Name"
+                    android:maxLines="1"
+                    android:layout_marginLeft="8dp"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!--
+                Layout for the contents of the right aligned items.
+            -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shadow_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/product_item_search_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00" />
+
+                    <CheckBox
+                        android:id="@+id/product_item_search_checked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:buttonTint="@color/colorPrimary"
+                        android:textColorLink="@color/colorPrimary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView>
+
+</LinearLayout>

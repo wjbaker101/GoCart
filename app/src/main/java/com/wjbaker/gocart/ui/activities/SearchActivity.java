@@ -9,10 +9,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,11 +18,10 @@ import android.widget.Toast;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.wjbaker.gocart.R;
-import com.wjbaker.gocart.database.DatabaseStorage;
 import com.wjbaker.gocart.request.ProductSearchRequest;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
-import com.wjbaker.gocart.ui.elements.product_container.SearchProductAdapter;
+import com.wjbaker.gocart.ui.views.product_container.SearchProductAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -121,11 +118,14 @@ public class SearchActivity extends AppCompatActivity
         navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
     }
 
+    /**
+     * Creates the RecyclerView for storing the search results.
+     */
     private void initProductContainer()
     {
         this.productContainer = findViewById(R.id.product_container);
 
-        this.productContainer.setHasFixedSize(false);
+        this.productContainer.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

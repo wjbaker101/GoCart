@@ -1,17 +1,16 @@
-package com.wjbaker.gocart.ui.elements.product_container;
+package com.wjbaker.gocart.ui.views.product_container;
 
 import android.support.v7.widget.RecyclerView;
-
-import com.wjbaker.gocart.ui.elements.ProductSearchItem;
+import android.view.View;
 
 /**
  * Created by William on 15/03/2018.
  */
 public class SearchProductViewHolder extends RecyclerView.ViewHolder
 {
-    public ProductSearchItem searchProductView;
+    public View searchProductView;
 
-    public SearchProductViewHolder(ProductSearchItem searchProductView)
+    public SearchProductViewHolder(View searchProductView)
     {
         super(searchProductView);
 
