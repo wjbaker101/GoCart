@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,6 +16,8 @@ import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
+
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -39,7 +43,44 @@ public class MainActivity extends AppCompatActivity
 
         this.initViews();
 
-        this.displayUncheckedItems();
+        this.displayItems();
+    }
+
+    private void displayItems()
+    {
+        this.checkedItemContainer.removeAllViews();
+        this.uncheckedItemContainer.removeAllViews();
+
+        for (final Product product : ShoppingList.getInstance(this).getProducts().values())
+        {
+            View checkedItemView = getLayoutInflater().inflate(R.layout.product_item_shopping, this.checkedItemContainer, false);
+            TextView nameView = checkedItemView.findViewById(R.id.product_item_shopping_name);
+            ProductItemShoppingView productItemShoppingView = checkedItemView.findViewById(R.id.product_item_shopping_content);
+            CheckBox checkBox = productItemShoppingView.findViewById(R.id.product_item_shopping_checked);
+
+            nameView.setText(product.getName());
+            checkBox.setChecked(product.isChecked());
+            productItemShoppingView.setProduct(product);
+
+            productItemShoppingView.addCheckBoxListener(new CompoundButton.OnCheckedChangeListener()
+            {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
+                {
+                    product.setChecked(checked);
+                    displayItems();
+                }
+            });
+
+            if (product.isChecked())
+            {
+                this.checkedItemContainer.addView(checkedItemView);
+            }
+            else
+            {
+                this.uncheckedItemContainer.addView(checkedItemView);
+            }
+        }
     }
 
     @Override
@@ -65,44 +106,5 @@ public class MainActivity extends AppCompatActivity
         navigation.setSelectedItemId(R.id.navigation_list);
 
         navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
-    }
-
-    private void displayUncheckedItems()
-    {
-        final int size = ShoppingList.getInstance(this).size();
-
-        for (int i = 0; i < size; ++i)
-        {
-            /*ShoppingListItem item = new ShoppingListItem(this, null);
-
-            final int scale = (int)(this.getResources().getDisplayMetrics().density);
-
-            item.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, (int)(58 * scale)));
-
-            item.bindProduct(ShoppingList.getInstance(this).getProduct(i));
-
-            this.uncheckedItemContainer.addView(item);*/
-
-            //System.out.println(ShoppingList.getInstance(this).getProduct(i));
-
-            View item = getLayoutInflater().inflate(R.layout.product_item_shopping, this.uncheckedItemContainer, false);
-
-            final Product product = ShoppingList.getInstance(this).getProduct(i);
-
-            TextView productName = item.findViewById(R.id.product_item_shopping_name);
-            //TextView productCost = item.findViewById(R.id.product_item_shopp_cost);
-            //final ImageView image = item.findViewById(R.id.product_item_search_image);
-
-            ProductItemShoppingView productItemView = item.findViewById(R.id.product_item_shopping_content);
-
-            productName.setText(product.getName());
-            //productCost.setText(String.format("£%.2f", product.getCost()));
-
-            productItemView.setProduct(product);
-
-            this.uncheckedItemContainer.addView(item);
-        }
-
-        this.uncheckedItemContainer.requestLayout();
     }
 }
