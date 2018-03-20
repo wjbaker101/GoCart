@@ -24,24 +24,10 @@ public class ProductItemShoppingView extends ProductItemView
      * Adds the event listener for when the CheckBox checked state changes.<br>
      * Will add or remove the associated Product from the shopping list.
      */
-    public void addCheckBoxListener()
+    public void addCheckBoxListener(CompoundButton.OnCheckedChangeListener listener)
     {
-        this.checkBox = this.findViewById(R.id.product_item_search_checked);
+        this.checkBox = this.findViewById(R.id.product_item_shopping_checked);
 
-        this.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-        {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
-            {
-                if (checked)
-                {
-                    ShoppingList.getInstance(getContext()).addItem(getProduct());
-                }
-                else
-                {
-                    ShoppingList.getInstance(getContext()).removeItem(getProduct().getTPNB());
-                }
-            }
-        });
+        this.checkBox.setOnCheckedChangeListener(listener);
     }
 }
