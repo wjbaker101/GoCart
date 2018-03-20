@@ -120,6 +120,16 @@ public class ShoppingList
     }
 
     /**
+     * Gets the HashMap of products in the shopping list.
+     *
+     * @return HashMap containing the products.
+     */
+    public HashMap<Integer, Product> getProducts()
+    {
+        return this.items;
+    }
+
+    /**
      * Stores the ShoppingList object.
      */
     private static ShoppingList instance;
