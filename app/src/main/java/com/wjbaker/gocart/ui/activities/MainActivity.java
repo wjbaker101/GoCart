@@ -1,5 +1,7 @@
 package com.wjbaker.gocart.ui.activities;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -48,12 +50,9 @@ public class MainActivity extends AppCompatActivity
 
     private void displayItems()
     {
-        this.checkedItemContainer.removeAllViews();
-        this.uncheckedItemContainer.removeAllViews();
-
         for (final Product product : ShoppingList.getInstance(this).getProducts().values())
         {
-            View checkedItemView = getLayoutInflater().inflate(R.layout.product_item_shopping, this.checkedItemContainer, false);
+            final View checkedItemView = getLayoutInflater().inflate(R.layout.product_item_shopping, this.checkedItemContainer, false);
             TextView nameView = checkedItemView.findViewById(R.id.product_item_shopping_name);
             ProductItemShoppingView productItemShoppingView = checkedItemView.findViewById(R.id.product_item_shopping_content);
             CheckBox checkBox = productItemShoppingView.findViewById(R.id.product_item_shopping_checked);
@@ -65,10 +64,34 @@ public class MainActivity extends AppCompatActivity
             productItemShoppingView.addCheckBoxListener(new CompoundButton.OnCheckedChangeListener()
             {
                 @Override
-                public void onCheckedChanged(CompoundButton compoundButton, boolean checked)
+                public void onCheckedChanged(CompoundButton compoundButton, final boolean checked)
                 {
-                    product.setChecked(checked);
-                    displayItems();
+                    // Adds the fading out animation
+                    checkedItemView.animate().setDuration(200).alpha(0).setListener(new AnimatorListenerAdapter()
+                    {
+                        @Override
+                        public void onAnimationEnd(Animator animation)
+                        {
+                            ShoppingList.getInstance(getBaseContext()).setProductChecked(product.getTPNB(), checked);
+
+                            if (checked)
+                            {
+                                uncheckedItemContainer.removeView(checkedItemView);
+                                checkedItemContainer.addView(checkedItemView);
+                            }
+                            else
+                            {
+                                checkedItemContainer.removeView(checkedItemView);
+                                uncheckedItemContainer.addView(checkedItemView);
+                            }
+
+                            checkedItemView.setVisibility(View.VISIBLE);
+                            checkedItemView.setAlpha(0);
+
+                            // Adds the fading in animation
+                            checkedItemView.animate().setDuration(200).alpha(1).setListener(null);
+                        }
+                    });
                 }
             });
 
