@@ -77,6 +77,7 @@ public class DatabaseStorage
         values.put(ShoppingListTable.KEY_SUPER_DEPARTMENT, product.getSuperDepartment());
         values.put(ShoppingListTable.KEY_DEPARTMENT, product.getDepartment());
         values.put(ShoppingListTable.KEY_IMAGE_URL, product.getImageURL());
+        values.put(ShoppingListTable.KEY_CHECKED, product.isChecked());
 
         db.insert(ShoppingListTable.TABLE_NAME, null, values);
 
@@ -109,6 +110,7 @@ public class DatabaseStorage
         values.put(ShoppingListTable.KEY_SUPER_DEPARTMENT, product.getSuperDepartment());
         values.put(ShoppingListTable.KEY_DEPARTMENT, product.getDepartment());
         values.put(ShoppingListTable.KEY_IMAGE_URL, product.getImageURL());
+        values.put(ShoppingListTable.KEY_CHECKED, product.isChecked());
 
         // Sets up the WHERE condition of the SQL statement
         String condition = String.format(" %s = ?", ShoppingListTable.KEY_TPNB);
@@ -150,8 +152,9 @@ public class DatabaseStorage
         String superDepartment = query.getString(5);
         String department = query.getString(6);
         String imageURL = query.getString(7);
+        Boolean isChecked = Boolean.parseBoolean(query.getString(8));
 
-        Product product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL);
+        Product product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL, isChecked);
 
         return product;
     }
@@ -189,8 +192,9 @@ public class DatabaseStorage
                 String superDepartment = query.getString(5);
                 String department = query.getString(6);
                 String imageURL = query.getString(7);
+                Boolean isChecked = query.getString(8).equals("1");
 
-                product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL);
+                product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL, isChecked);
 
                 products.add(product);
             }
