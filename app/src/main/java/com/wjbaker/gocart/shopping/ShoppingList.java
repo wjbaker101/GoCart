@@ -25,6 +25,11 @@ public class ShoppingList
     private Context context;
 
     /**
+     * Stores the ShoppingList object.
+     */
+    private static ShoppingList instance;
+
+    /**
      * First time the class is created, initialises the HashMap.<br>
      * Adds database data into the HashMap.
      *
@@ -120,9 +125,35 @@ public class ShoppingList
     }
 
     /**
-     * Stores the ShoppingList object.
+     * Gets the HashMap of products in the shopping list.
+     *
+     * @return HashMap containing the products.
      */
-    private static ShoppingList instance;
+    public HashMap<Integer, Product> getProducts()
+    {
+        return this.items;
+    }
+
+    /**
+     * Updates a Product on whether it has been checked by the user.<br>
+     * Then updates the database with the data of the Product.
+     *
+     * @param tpnb ID of the Product to update.
+     * @param isChecked Whether the Product is to be checked or not.
+     */
+    public void setProductChecked(int tpnb, boolean isChecked)
+    {
+        // Makes sure the Product exists
+        // Then overrides the current Product with a new Product
+        if (this.items.containsKey(tpnb))
+        {
+            Product newProduct = this.items.get(tpnb).setChecked(isChecked);
+
+            this.items.put(tpnb, newProduct);
+
+            DatabaseStorage.query(this.context).updateProduct(newProduct);
+        }
+    }
 
     /**
      * Allows the class to act as a singleton.<br>

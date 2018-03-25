@@ -18,7 +18,7 @@ public class DatabaseStorageHelper extends SQLiteOpenHelper
     /**
      * Stores the current version of the database.
      */
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     /**
      * Stores the name of the database.
@@ -43,6 +43,7 @@ public class DatabaseStorageHelper extends SQLiteOpenHelper
             String.format("%s TEXT", ShoppingListTable.KEY_SUPER_DEPARTMENT),
             String.format("%s TEXT", ShoppingListTable.KEY_DEPARTMENT),
             String.format("%s TEXT", ShoppingListTable.KEY_IMAGE_URL),
+            String.format("%s BOOLEAN", ShoppingListTable.KEY_CHECKED),
         };
 
         String columns = TextUtils.join(", ", columnInformation);

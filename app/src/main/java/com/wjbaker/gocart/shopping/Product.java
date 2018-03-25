@@ -23,7 +23,14 @@ public class Product
 
     private String imageURL;
 
+    private boolean isChecked;
+
     public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL)
+    {
+        this(tpnb, name, description, cost, quantity, superDepartment, department, imageURL, false);
+    }
+
+    public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL, boolean isChecked)
     {
         this.tpnb = tpnb;
         this.name = name;
@@ -33,6 +40,8 @@ public class Product
         this.superDepartment = superDepartment;
         this.department = department;
         this.imageURL = imageURL;
+
+        this.isChecked = isChecked;
     }
 
     public int getTPNB()
@@ -73,5 +82,15 @@ public class Product
     public String getImageURL()
     {
         return imageURL;
+    }
+
+    public boolean isChecked()
+    {
+        return this.isChecked;
+    }
+
+    public Product setChecked(boolean isChecked)
+    {
+        return new Product(this.getTPNB(), this.getName(), this.getDescription(), this.getCost(), this.getQuantity(), this.getSuperDepartment(), this.getDepartment(), this.getImageURL(), isChecked);
     }
 }
