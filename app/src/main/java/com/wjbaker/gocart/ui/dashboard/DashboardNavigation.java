@@ -15,13 +15,27 @@ import com.wjbaker.gocart.ui.activities.SearchActivity;
  */
 public class DashboardNavigation implements BottomNavigationView.OnNavigationItemSelectedListener
 {
+    /**
+     * Stores the current activity the user is viewing.
+     */
     private Activity currentActivity;
 
+    /**
+     * Allows an activity to create the dashboard navigation.
+     *
+     * @param currentActivity The current activity.
+     */
     public DashboardNavigation(Activity currentActivity)
     {
         this.currentActivity = currentActivity;
     }
 
+    /**
+     * Called when one of the menu items is pressed by the user.
+     *
+     * @param item The menu item selected.
+     * @return Whether or not an action occurred.
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item)
     {
@@ -35,36 +49,54 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
         return false;
     }
 
+    /**
+     * Called when the user wants to view their shopping list.
+     *
+     * @return True.
+     */
     private boolean onNavigateList()
     {
-        if (currentActivity.getClass() == MainActivity.class) return false;
-
-        Intent intent = new Intent(currentActivity, MainActivity.class);
-
-        currentActivity.startActivity(intent);
+        this.switchActivity(MainActivity.class);
 
         return true;
     }
 
+    /**
+     * Called when the user wants to search for products.
+     *
+     * @return True.
+     */
     private boolean onNavigateSearch()
     {
-        if (currentActivity.getClass() == SearchActivity.class) return false;
-
-        Intent intent = new Intent(currentActivity, SearchActivity.class);
-
-        currentActivity.startActivity(intent);
+        this.switchActivity(SearchActivity.class);
 
         return true;
     }
 
+    /**
+     * Called when the user wants to view store information.
+     *
+     * @return True.
+     */
     private boolean onNavigateStores()
     {
-        /*if (currentActivity.getClass() == MainActivity.class) return false;
-
-        Intent myIntent = new Intent(currentActivity, SearchActivity.class);
-
-        currentActivity.startActivity(myIntent);*/
 
         return true;
+    }
+
+    /**
+     * Switches the app to a new activity.
+     *
+     * @param newClass The class of the new activity.
+     */
+    private void switchActivity(Class<?> newClass)
+    {
+        // Checks whether the current activity is the same as the new activity
+        // Makes sure the current activity isn't selected again
+        if (currentActivity.getClass() == newClass) return;
+
+        Intent intent = new Intent(currentActivity, newClass);
+
+        currentActivity.startActivity(intent);
     }
 }
