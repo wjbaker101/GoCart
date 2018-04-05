@@ -1,4 +1,4 @@
-package com.wjbaker.gocart.ui.views.product_container;
+package com.wjbaker.gocart.ui.views.search_product_container;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
