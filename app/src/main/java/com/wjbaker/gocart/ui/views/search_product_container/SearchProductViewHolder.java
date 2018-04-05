@@ -37,6 +37,7 @@ public class SearchProductViewHolder extends RecyclerView.ViewHolder
         TextView productName = this.searchProductView.findViewById(R.id.product_item_search_name);
         TextView productCost = this.searchProductView.findViewById(R.id.product_item_search_cost);
         final ImageView image = this.searchProductView.findViewById(R.id.product_item_search_image);
+        CheckBox checkBox = this.searchProductView.findViewById(R.id.product_item_search_checked);
 
         ProductItemSearchView productItemView = this.searchProductView.findViewById(R.id.product_item_search_content);
 
@@ -44,16 +45,19 @@ public class SearchProductViewHolder extends RecyclerView.ViewHolder
         productCost.setText(String.format("£%.2f", product.getCost()));
         Picasso.get().load(product.getImageURL()).into(image);
 
+        // Remove any existing listeners so they do not prematurely fire
+        // Then set initial checkbox state
+        checkBox.setOnCheckedChangeListener(null);
+        checkBox.setChecked(false);
+
         productItemView.setProduct(product);
 
         if (ShoppingList.getInstance(this.searchProductView.getContext()).get(product.getTPNB()) != null)
         {
-            CheckBox checkBox = this.searchProductView.findViewById(R.id.product_item_search_checked);
-
             checkBox.setChecked(true);
-
-            checkBox.setOnCheckedChangeListener(this.getOnCheckBoxChangeListener(product));
         }
+
+        checkBox.setOnCheckedChangeListener(this.getOnCheckBoxChangeListener(product));
     }
 
     /**
