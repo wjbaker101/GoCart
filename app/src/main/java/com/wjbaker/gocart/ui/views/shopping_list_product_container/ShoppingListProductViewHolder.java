@@ -14,6 +14,7 @@ import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
+import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;
 
 /**
  * Created by William on 15/03/2018.
@@ -28,12 +29,12 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
     /**
      * Adapter of the RecyclerView the Product is currently within.
      */
-    private CheckedShoppingListProductAdapter oldItemContainer;
+    private ShoppingListProductAdapter oldItemContainer;
 
     /**
      * Adapter of the RecyclerView where the Product will be moved to.
      */
-    private CheckedShoppingListProductAdapter newItemContainer;
+    private ShoppingListProductAdapter newItemContainer;
 
     private final int ANIMATION_DURATION;
 
@@ -44,7 +45,7 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
      * @param oldItemContainer Adapter of the RecyclerView the Product is currently within.
      * @param newItemContainer Adapter of the RecyclerView where the Product will be moved to.
      */
-    public ShoppingListProductViewHolder(View view, CheckedShoppingListProductAdapter oldItemContainer, CheckedShoppingListProductAdapter newItemContainer)
+    public ShoppingListProductViewHolder(View view, ShoppingListProductAdapter oldItemContainer, ShoppingListProductAdapter newItemContainer)
     {
         super(view);
 
