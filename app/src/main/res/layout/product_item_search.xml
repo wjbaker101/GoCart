@@ -25,12 +25,13 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginLeft="12dp">
+                android:layout_marginLeft="8dp"
+                android:padding="8dp">
 
                 <ImageView
                     android:id="@+id/product_item_search_image"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/product_image_size"
+                    android:layout_height="@dimen/product_image_size"
                     android:layout_centerInParent="true"/>
 
                 <TextView
@@ -51,7 +52,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true">
 
                 <View
                     android:layout_width="8dp"
@@ -61,10 +63,11 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
 
                     <TextView
                         android:id="@+id/product_item_search_cost"

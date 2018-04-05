@@ -13,26 +13,76 @@
         app:cardElevation="2dp"
         app:cardUseCompatPadding="true">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dp">
+            android:layout_height="match_parent">
 
-            <CheckBox
-                android:id="@+id/product_item_shopping_checked"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:buttonTint="@color/colorPrimary" />
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:padding="8dp">
 
-            <TextView
-                android:id="@+id/product_item_shopping_name"
+                <CheckBox
+                    android:id="@+id/product_item_shopping_checked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:buttonTint="@color/colorPrimary" />
+
+                <ImageView
+                    android:id="@+id/product_item_shopping_image"
+                    android:layout_width="@dimen/product_image_size"
+                    android:layout_height="@dimen/product_image_size"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:id="@+id/product_item_shopping_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product Name"
+                    android:maxLines="1"
+                    android:layout_gravity="center_vertical" />
+
+            </LinearLayout>
+
+            <!--
+                Layout for the contents of the right aligned items.
+            -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Product Name"
-                android:maxLines="1"
-                android:layout_gravity="center_vertical" />
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginRight="8dp">
 
-        </LinearLayout>
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/shadow_left" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/product_item_shopping_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView>
 
