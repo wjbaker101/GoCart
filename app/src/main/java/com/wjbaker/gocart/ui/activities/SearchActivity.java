@@ -21,7 +21,7 @@ import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.request.ProductSearchRequest;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
-import com.wjbaker.gocart.ui.views.product_container.SearchProductAdapter;
+import com.wjbaker.gocart.ui.views.search_product_container.SearchProductAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
