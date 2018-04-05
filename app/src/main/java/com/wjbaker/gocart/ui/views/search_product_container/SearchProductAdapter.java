@@ -47,28 +47,7 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductView
     @Override
     public void onBindViewHolder(SearchProductViewHolder holder, int position)
     {
-        final Product product = this.dataset.get(position);
-
-        TextView productName = holder.searchProductView.findViewById(R.id.product_item_search_name);
-        TextView productCost = holder.searchProductView.findViewById(R.id.product_item_search_cost);
-        final ImageView image = holder.searchProductView.findViewById(R.id.product_item_search_image);
-
-        ProductItemSearchView productItemView = holder.searchProductView.findViewById(R.id.product_item_search_content);
-
-        productName.setText(product.getName());
-        productCost.setText(String.format("£%.2f", product.getCost()));
-        Picasso.get().load(product.getImageURL()).into(image);
-
-        productItemView.setProduct(product);
-
-        if (ShoppingList.getInstance(holder.searchProductView.getContext()).get(product.getTPNB()) != null)
-        {
-            CheckBox checkBox = holder.searchProductView.findViewById(R.id.product_item_search_checked);
-
-            checkBox.setChecked(true);
-        }
-
-        productItemView.addCheckBoxListener();
+        holder.bind(this.dataset.get(position));
     }
 
     /**
