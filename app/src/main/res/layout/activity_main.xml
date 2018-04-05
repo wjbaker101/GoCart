@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
@@ -9,67 +10,94 @@
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/navigation">
+        app:menu="@menu/navigation" />
 
-    </android.support.design.widget.BottomNavigationView>
-
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/main_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="56dp"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="56dp">
+        android:scrollbars="vertical"
+        android:layout_marginBottom="56dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="56dp"
+            android:layout_marginBottom="48dp"
             android:orientation="vertical"
             android:paddingTop="8dp">
 
-            <TextView
-                android:id="@+id/heading_unchecked"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:paddingBottom="16dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="@string/list_heading_unchecked_items"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:paddingTop="16dp">
 
-            <LinearLayout
+                <TextView
+                    android:id="@+id/unchecked_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/unchecked_items_counter"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                <TextView
+                    android:id="@+id/heading_unchecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/list_heading_unchecked_items" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/unchecked_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="8dp"></LinearLayout>
+                android:padding="8dp" />
 
-            <TextView
-                android:id="@+id/heading_checked"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:paddingBottom="16dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="@string/list_heading_checked_items"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+                android:paddingTop="16dp">
 
-            <LinearLayout
+                <TextView
+                    android:id="@+id/checked_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/checked_items_counter"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                <TextView
+                    android:id="@+id/heading_checked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/list_heading_checked_items" />
+
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/checked_item_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="8dp"></LinearLayout>
+                android:padding="8dp" />
 
         </LinearLayout>
-    </ScrollView>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </android.support.constraint.ConstraintLayout>
