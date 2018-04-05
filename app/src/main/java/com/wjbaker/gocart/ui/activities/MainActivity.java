@@ -1,25 +1,22 @@
 package com.wjbaker.gocart.ui.activities;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
-import com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView;
-import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
+import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.CheckedShoppingListProductAdapter;
+import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.UncheckedShoppingListProductAdapter;
 
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -28,12 +25,24 @@ public class MainActivity extends AppCompatActivity
     /**
      * TableLayout for displaying the unchecked items in the shopping list.
      */
-    private LinearLayout uncheckedItemContainer;
+    private RecyclerView uncheckedItemContainer;
+
+    private UncheckedShoppingListProductAdapter uncheckedItemContainerAdapter;
 
     /**
      * TableLayout for displaying the checked items in the shopping list.
      */
-    private LinearLayout checkedItemContainer;
+    private RecyclerView checkedItemContainer;
+
+    private CheckedShoppingListProductAdapter checkedItemContainerAdapter;
+
+    private int checkedItemsCount;
+
+    private int uncheckedItemsCount;
+
+    private TextView checkedTextView;
+
+    private TextView uncheckedTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,93 +50,117 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.checkedItemsCount = 0;
+        this.uncheckedItemsCount = 0;
+
+        this.checkedTextView = findViewById(R.id.checked_counter);
+        this.uncheckedTextView = findViewById(R.id.unchecked_counter);
+
         this.initNavigation();
 
-        this.initViews();
+        this.setupProducts();
 
-        this.displayItems();
-    }
+        this.addProducts();
 
-    private void displayItems()
-    {
-        for (final Product product : ShoppingList.getInstance(this).getProducts().values())
-        {
-            final View checkedItemView = getLayoutInflater().inflate(R.layout.product_item_shopping, this.checkedItemContainer, false);
-            TextView nameView = checkedItemView.findViewById(R.id.product_item_shopping_name);
-            ProductItemShoppingView productItemShoppingView = checkedItemView.findViewById(R.id.product_item_shopping_content);
-            CheckBox checkBox = productItemShoppingView.findViewById(R.id.product_item_shopping_checked);
-
-            nameView.setText(product.getName());
-            checkBox.setChecked(product.isChecked());
-            productItemShoppingView.setProduct(product);
-
-            productItemShoppingView.addCheckBoxListener(new CompoundButton.OnCheckedChangeListener()
-            {
-                @Override
-                public void onCheckedChanged(CompoundButton compoundButton, final boolean checked)
-                {
-                    // Adds the fading out animation
-                    checkedItemView.animate().setDuration(200).alpha(0).setListener(new AnimatorListenerAdapter()
-                    {
-                        @Override
-                        public void onAnimationEnd(Animator animation)
-                        {
-                            ShoppingList.getInstance(getBaseContext()).setProductChecked(product.getTPNB(), checked);
-
-                            if (checked)
-                            {
-                                uncheckedItemContainer.removeView(checkedItemView);
-                                checkedItemContainer.addView(checkedItemView);
-                            }
-                            else
-                            {
-                                checkedItemContainer.removeView(checkedItemView);
-                                uncheckedItemContainer.addView(checkedItemView);
-                            }
-
-                            checkedItemView.setVisibility(View.VISIBLE);
-                            checkedItemView.setAlpha(0);
-
-                            // Adds the fading in animation
-                            checkedItemView.animate().setDuration(200).alpha(1).setListener(null);
-                        }
-                    });
-                }
-            });
-
-            if (product.isChecked())
-            {
-                this.checkedItemContainer.addView(checkedItemView);
-            }
-            else
-            {
-                this.uncheckedItemContainer.addView(checkedItemView);
-            }
-        }
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
+        this.scrollToTop();
     }
 
     /**
-     * Initialises the objects storing the Views on the main activity.
+     * Requests focus of the NestedScrollView so that it will scroll to the top.<br>
+     * Without this fix, the top of the screen will be slightly lower than it should.
      */
-    private void initViews()
+    private void scrollToTop()
     {
-        this.uncheckedItemContainer = findViewById(R.id.unchecked_item_container);
+        NestedScrollView mainScrollView = findViewById(R.id.main_scroll_view);
 
+        mainScrollView.getParent().requestChildFocus(mainScrollView, mainScrollView);
+    }
+
+    /**
+     * Creates the RecyclerViews for the checked and unchecked products.
+     */
+    private void setupProducts()
+    {
+        LinearLayoutManager linearLayoutManagerChecked = new LinearLayoutManager(this);
+        LinearLayoutManager linearLayoutManagerUnchecked = new LinearLayoutManager(this);
+
+        linearLayoutManagerChecked.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManagerUnchecked.setOrientation(LinearLayoutManager.VERTICAL);
+
+        this.uncheckedItemContainer = findViewById(R.id.unchecked_item_container);
         this.checkedItemContainer = findViewById(R.id.checked_item_container);
+
+        this.uncheckedItemContainerAdapter = new UncheckedShoppingListProductAdapter(new ArrayList<Product>(), this);
+        this.checkedItemContainerAdapter = new CheckedShoppingListProductAdapter(new ArrayList<Product>(), this);
+
+        this.checkedItemContainerAdapter.setNewItemContainer(this.uncheckedItemContainerAdapter);
+        this.uncheckedItemContainerAdapter.setNewItemContainer(this.checkedItemContainerAdapter);
+
+        this.uncheckedItemContainer.setAdapter(this.uncheckedItemContainerAdapter);
+        this.uncheckedItemContainer.setLayoutManager(linearLayoutManagerUnchecked);
+        this.uncheckedItemContainer.setNestedScrollingEnabled(false);
+        this.uncheckedItemContainer.setHasFixedSize(false);
+
+        this.checkedItemContainer.setAdapter(this.checkedItemContainerAdapter);
+        this.checkedItemContainer.setLayoutManager(linearLayoutManagerChecked);
+        this.checkedItemContainer.setNestedScrollingEnabled(false);
+        this.checkedItemContainer.setHasFixedSize(false);
+    }
+
+    /**
+     * Adds products from the shopping list into the activity, putting them in either
+     * the checked or unchecked RecyclerViews.
+     */
+    private void addProducts()
+    {
+        final Collection<Product> products = ShoppingList.getInstance(this).getProducts().values();
+
+        for (final Product product : products)
+        {
+            if (product.isChecked())
+            {
+                this.checkedItemContainerAdapter.addItem(product);
+            }
+            else
+            {
+                this.uncheckedItemContainerAdapter.addItem(product);
+            }
+        }
+
+        System.out.println(products.size());
+
+        this.updateCounters();
     }
 
     private void initNavigation()
     {
-        BottomNavigationView navigation = (BottomNavigationView)findViewById(R.id.navigation);
+        BottomNavigationView navigation = findViewById(R.id.navigation);
 
         navigation.setSelectedItemId(R.id.navigation_list);
 
         navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
+    }
+
+    public void incrementCheckedItemsCount(int value)
+    {
+        this.checkedItemsCount += value;
+
+        this.updateCounters();
+    }
+
+    public void incrementUncheckedItemsCount(int value)
+    {
+        this.uncheckedItemsCount += value;
+
+        this.updateCounters();
+    }
+
+    private void updateCounters()
+    {
+        String checkedTemplate = getResources().getString(R.string.checked_items_counter);
+        String uncheckedTemplate = getResources().getString(R.string.unchecked_items_counter);
+
+        this.checkedTextView.setText(checkedTemplate.replace("{count}", "" + this.checkedItemsCount));
+        this.uncheckedTextView.setText(uncheckedTemplate.replace("{count}", "" + this.uncheckedItemsCount));
     }
 }
