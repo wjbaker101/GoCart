@@ -12,4 +12,7 @@
     <string name="unchecked_items_counter">({count})</string>
 
     <string name="search_input_heading">Search:</string>
+
+    <string name="product_info_dialog_heading">{product_name}</string>
+    <string name="product_info_dialog_cost">£{cost}</string>
 </resources>
