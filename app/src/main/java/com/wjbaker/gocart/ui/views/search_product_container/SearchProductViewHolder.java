@@ -63,6 +63,9 @@ public class SearchProductViewHolder extends RecyclerView.ViewHolder
     /**
      * Adds the event listener for when the CheckBox checked state changes.<br>
      * Will add or remove the associated Product from the shopping list.
+     *
+     * @param product The Product associated with the View.
+     * @return The listener to add to the CheckBox.
      */
     public CompoundButton.OnCheckedChangeListener getOnCheckBoxChangeListener(final Product product)
     {
