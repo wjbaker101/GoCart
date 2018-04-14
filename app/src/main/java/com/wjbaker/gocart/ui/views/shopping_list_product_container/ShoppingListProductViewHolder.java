@@ -13,6 +13,8 @@ import com.squareup.picasso.Picasso;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
+import com.wjbaker.gocart.ui.activities.MainActivity;
+import com.wjbaker.gocart.ui.dialogs.ProductInfoDialog;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;
 
@@ -36,6 +38,8 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
      */
     private ShoppingListProductAdapter newItemContainer;
 
+    private MainActivity mainActivity;
+
     private final int ANIMATION_DURATION;
 
     /**
@@ -45,7 +49,7 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
      * @param oldItemContainer Adapter of the RecyclerView the Product is currently within.
      * @param newItemContainer Adapter of the RecyclerView where the Product will be moved to.
      */
-    public ShoppingListProductViewHolder(View view, ShoppingListProductAdapter oldItemContainer, ShoppingListProductAdapter newItemContainer)
+    public ShoppingListProductViewHolder(View view, ShoppingListProductAdapter oldItemContainer, ShoppingListProductAdapter newItemContainer, MainActivity mainActivity)
     {
         super(view);
 
@@ -56,6 +60,8 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
         this.newItemContainer = newItemContainer;
 
         this.ANIMATION_DURATION = 200;
+
+        this.mainActivity = mainActivity;
     }
 
     /**
@@ -75,6 +81,8 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
 
         ProductItemShoppingView productItemView = this.view.findViewById(R.id.product_item_shopping_content);
         productItemView.setProduct(product);
+
+        productItemView.setOnClickListener(this.onProductClick(product));
 
         this.createCheckBox(product);
     }
@@ -134,6 +142,27 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
                         view.animate().setDuration(ANIMATION_DURATION).alpha(1).setListener(null);
                     }
                 });
+            }
+        };
+    }
+
+    /**
+     * Creates an OnClick listener for when the View is clicked.<br>
+     * It will display a new dialog, showing information about the Product.
+     *
+     * @param product The relevant Product to display information about.
+     * @return The newly created OnClick listener.
+     */
+    private View.OnClickListener onProductClick(final Product product)
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                ProductInfoDialog
+                    .create(product, view)
+                    .show(mainActivity.getFragmentManager(), "product_info");
             }
         };
     }
