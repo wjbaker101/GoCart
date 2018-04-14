@@ -134,7 +134,7 @@ public class SearchActivity extends AppCompatActivity
 
         List<Product> list = new ArrayList<>();
 
-        this.searchProductAdapter = new SearchProductAdapter(list);
+        this.searchProductAdapter = new SearchProductAdapter(list, this);
         this.productContainer.setAdapter(this.searchProductAdapter);
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.ui.activities.MainActivity;
+import com.wjbaker.gocart.ui.dialogs.ProductInfoDialog;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.ShoppingListProductViewHolder;
 
 import java.util.List;
@@ -54,7 +55,7 @@ public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<Sh
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_shopping, parent, false);
 
-        ShoppingListProductViewHolder viewHolder = new ShoppingListProductViewHolder(view, this, this.newItemContainer);
+        ShoppingListProductViewHolder viewHolder = new ShoppingListProductViewHolder(view, this, this.newItemContainer, this.mainActivity);
 
         return viewHolder;
     }

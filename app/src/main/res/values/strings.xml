@@ -1,15 +1,42 @@
 <resources>
+
+    <!--
+        Main name of the app.
+    -->
     <string name="app_name">GoCart</string>
 
+    <!--
+        Labels for each of the bottom navigation icons.
+    -->
     <string name="menu_shopping_list">List</string>
     <string name="menu_grocery_search">Search</string>
     <string name="menu_stores">Stores</string>
 
+    <!--
+        Headings for checked and unchecked items in the shopping list.
+    -->
     <string name="list_heading_unchecked_items">Shopping List:</string>
     <string name="list_heading_checked_items">Checked Items:</string>
 
+    <!--
+        Labels displaying the number of checked or unchecked items.
+    -->
     <string name="checked_items_counter">({count})</string>
     <string name="unchecked_items_counter">({count})</string>
 
+    <!--
+        Label for the EditText in the search activity.
+    -->
     <string name="search_input_heading">Search:</string>
+
+    <!--
+        Labels for the information to be displayed in the product info dialog.
+    -->
+    <string name="product_info_dialog_heading">{product_name}</string>
+    <string name="product_info_dialog_cost">£{cost}</string>
+    <string name="product_info_amount_label">Amount:</string>
+    <string name="product_info_amount_count">{amount}</string>
+    <string name="product_info_amount_edit">Edit</string>
+    <string name="product_info_added_label">Add to Shopping List</string>
+
 </resources>

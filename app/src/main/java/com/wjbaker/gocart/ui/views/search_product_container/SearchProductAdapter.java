@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
+import com.wjbaker.gocart.ui.activities.SearchActivity;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView;
 
 import java.util.List;
@@ -21,11 +22,21 @@ import java.util.List;
  */
 public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductViewHolder>
 {
+    /**
+     * Stores the products to display.
+     */
     private List<Product> dataset;
 
-    public SearchProductAdapter(List<Product> dataset)
+    /**
+     * Stores the SearchActivity so that it can be passed through to the ViewHolder.
+     */
+    private SearchActivity searchActivity;
+
+    public SearchProductAdapter(List<Product> dataset, SearchActivity searchActivity)
     {
         this.dataset = dataset;
+
+        this.searchActivity = searchActivity;
     }
 
     @Override
@@ -33,7 +44,7 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductView
     {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_search, parent, false);
 
-        SearchProductViewHolder viewHolder = new SearchProductViewHolder(view);
+        SearchProductViewHolder viewHolder = new SearchProductViewHolder(view, this.searchActivity);
 
         return viewHolder;
     }
