@@ -127,8 +127,6 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
-        System.out.println(products.size());
-
         this.updateCounters();
     }
 
