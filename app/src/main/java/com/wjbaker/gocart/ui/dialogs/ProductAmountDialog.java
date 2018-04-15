@@ -20,24 +20,35 @@ import com.wjbaker.gocart.shopping.Product;
 public class ProductAmountDialog extends DialogFragment
 {
     /**
-     * Stores the initial amount of the Product.
+     * Stores the Product.
      */
-    private int initialAmount = 1;
+    private Product product;
 
     /**
      * Stores the TextView displaying the amount in the ProductInfoDialog.<br>
      * Allows the content to be changed when the "Done" button is pressed.
      */
-    private TextView amountTextView;
+    private View view;
 
-    public void setAmount(int amount)
+    public void setProduct(Product product)
     {
-        this.initialAmount = amount;
+        this.product = product;
     }
 
-    public void setAmountTextView(TextView amountTextView)
+    public void setView(View view)
     {
-        this.amountTextView = amountTextView;
+        this.view = view;
+    }
+
+    public static ProductAmountDialog create(Product product, View view)
+    {
+        ProductAmountDialog dialog = new ProductAmountDialog();
+
+        dialog.setProduct(product);
+
+        dialog.setView(view);
+
+        return dialog;
     }
 
     @Override
@@ -55,7 +66,7 @@ public class ProductAmountDialog extends DialogFragment
         numberPicker.setMinValue(1);
         numberPicker.setMaxValue(1000);
 
-        numberPicker.setValue(this.initialAmount);
+        numberPicker.setValue(this.product.getAmount());
 
         // Start building the Dialog
         builder
@@ -77,10 +88,15 @@ public class ProductAmountDialog extends DialogFragment
             @Override
             public void onClick(DialogInterface dialog, int id)
             {
-                if (amountTextView != null)
-                {
-                    amountTextView.setText("Amount: " + numberPicker.getValue());
-                }
+                int newAmount = numberPicker.getValue();
+
+                TextView amountTextView = view.findViewById(R.id.product_info_dialog_amount);
+
+                String amountText = getString(R.string.product_info_amount_count);
+
+                amountTextView.setText(amountText.replace("{amount}", "" + newAmount));
+
+                product.setAmount(newAmount);
             }
         };
     }
