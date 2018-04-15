@@ -78,6 +78,7 @@ public class DatabaseStorage
         values.put(ShoppingListTable.KEY_DEPARTMENT, product.getDepartment());
         values.put(ShoppingListTable.KEY_IMAGE_URL, product.getImageURL());
         values.put(ShoppingListTable.KEY_CHECKED, product.isChecked());
+        values.put(ShoppingListTable.KEY_AMOUNT, product.getAmount());
 
         db.insert(ShoppingListTable.TABLE_NAME, null, values);
 
@@ -111,6 +112,7 @@ public class DatabaseStorage
         values.put(ShoppingListTable.KEY_DEPARTMENT, product.getDepartment());
         values.put(ShoppingListTable.KEY_IMAGE_URL, product.getImageURL());
         values.put(ShoppingListTable.KEY_CHECKED, product.isChecked());
+        values.put(ShoppingListTable.KEY_AMOUNT, product.getAmount());
 
         // Sets up the WHERE condition of the SQL statement
         String condition = String.format(" %s = ?", ShoppingListTable.KEY_TPNB);
@@ -153,8 +155,12 @@ public class DatabaseStorage
         String department = query.getString(6);
         String imageURL = query.getString(7);
         Boolean isChecked = Boolean.parseBoolean(query.getString(8));
+        int amount = Integer.parseInt(query.getString(9));
 
-        Product product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL, isChecked);
+        Product product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL);
+
+        product.setChecked(isChecked);
+        product.setAmount(amount);
 
         return product;
     }
@@ -193,8 +199,12 @@ public class DatabaseStorage
                 String department = query.getString(6);
                 String imageURL = query.getString(7);
                 Boolean isChecked = query.getString(8).equals("1");
+                int amount = Integer.parseInt(query.getString(9));
 
-                product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL, isChecked);
+                product = new Product(tpnb, name, description, cost, quantity, superDepartment, department, imageURL);
+
+                product.setChecked(isChecked);
+                product.setAmount(amount);
 
                 products.add(product);
             }

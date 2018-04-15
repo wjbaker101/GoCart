@@ -63,9 +63,15 @@ public class ShoppingListTable
 
     /**
      * Stores the "IsChecked" column of the table.<br>
-     * Store whether the Product has been checked by the user.
+     * Stores whether the Product has been checked by the user.
      */
     public static final String KEY_CHECKED = "IsChecked";
+
+    /**
+     * Stores the "Amount" column of the table.<br>
+     * Store the number of the Product the user wishes to purchase.
+     */
+    public static final String KEY_AMOUNT = "Amount";
 
     /**
      * Stores an array of all of the column names in the table.
@@ -81,5 +87,6 @@ public class ShoppingListTable
         KEY_DEPARTMENT,
         KEY_IMAGE_URL,
         KEY_CHECKED,
+        KEY_AMOUNT,
     };
 }
