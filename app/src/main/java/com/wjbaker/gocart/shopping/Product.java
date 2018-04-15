@@ -7,30 +7,57 @@ package com.wjbaker.gocart.shopping;
  */
 public class Product
 {
-    private int tpnb;
+    /**
+     * The unique ID of the Tesco Product, set by Tesco.
+     */
+    private final int tpnb;
 
-    private String name;
+    /**
+     * The name of the Product.
+     */
+    private final String name;
 
-    private String description;
+    /**
+     * Words or phrases describing the Product.
+     */
+    private final String description;
 
-    private float cost;
+    /**
+     * The cost of the Product (in GBP).
+     */
+    private final float cost;
 
-    private float quantity;
+    /**
+     * The pack size or weight of the contents of the Product.
+     */
+    private final float quantity;
 
-    private String superDepartment;
+    /**
+     * The department of the Product.
+     */
+    private final String superDepartment;
 
-    private String department;
+    /**
+     * A more specific department of the Product.
+     */
+    private final String department;
 
-    private String imageURL;
+    /**
+     * URL of the image containing the Product.
+     */
+    private final String imageURL;
 
+    /**
+     * Whether the user has checked or unchecked this Product.
+     */
     private boolean isChecked;
 
-    public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL)
-    {
-        this(tpnb, name, description, cost, quantity, superDepartment, department, imageURL, false);
-    }
+    /**
+     * The number of Product the user wishes to purchase.
+     */
+    private int amount;
 
-    public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL, boolean isChecked)
+    public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL)
     {
         this.tpnb = tpnb;
         this.name = name;
@@ -41,7 +68,8 @@ public class Product
         this.department = department;
         this.imageURL = imageURL;
 
-        this.isChecked = isChecked;
+        this.isChecked = false;
+        this.amount = 1;
     }
 
     public int getTPNB()
@@ -89,8 +117,18 @@ public class Product
         return this.isChecked;
     }
 
-    public Product setChecked(boolean isChecked)
+    public int getAmount()
     {
-        return new Product(this.getTPNB(), this.getName(), this.getDescription(), this.getCost(), this.getQuantity(), this.getSuperDepartment(), this.getDepartment(), this.getImageURL(), isChecked);
+        return this.amount;
+    }
+
+    public void setChecked(boolean isChecked)
+    {
+        this.isChecked = isChecked;
+    }
+
+    public void setAmount(int amount)
+    {
+        this.amount = amount;
     }
 }
