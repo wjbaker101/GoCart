@@ -126,11 +126,7 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
                     @Override
                     public void onAnimationEnd(Animator animation)
                     {
-                        // Gets the product direct from the shopping list again
-                        // So that when the product points to the correct object
-                        Product newProduct = ShoppingList.getInstance(view.getContext()).get(product.getTPNB());
-
-                        newItemContainer.addItem(newProduct);
+                        newItemContainer.addItem(product);
                         oldItemContainer.removeItem(product);
 
                         // Hides the View
