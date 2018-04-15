@@ -88,36 +88,32 @@ public class ProductInfoDialog extends DialogFragment
         LayoutInflater inflater = this.getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.product_info_dialog, null);
 
-        // Checks whether there is a Product assigned to the Dialog
-        // In the unlikely event that a Product has not been set
-        // Prevents the app from crashing with a NullPointerException
-        if (this.product != null)
-        {
-            TextView nameTextView = dialogView.findViewById(R.id.product_info_dialog_name);
-            TextView costTextView = dialogView.findViewById(R.id.product_info_dialog_cost);
-            ImageView imageView = dialogView.findViewById(R.id.product_info_dialog_image);
-            CheckBox addedCheckBox = dialogView.findViewById(R.id.product_info_dialog_added_checkbox);
-            final TextView amountTextView = dialogView.findViewById(R.id.product_info_dialog_amount);
-            TextView editAmountTextView = dialogView.findViewById(R.id.product_info_dialog_edit_amount);
+        TextView nameTextView = dialogView.findViewById(R.id.product_info_dialog_name);
+        TextView costTextView = dialogView.findViewById(R.id.product_info_dialog_cost);
+        ImageView imageView = dialogView.findViewById(R.id.product_info_dialog_image);
+        CheckBox addedCheckBox = dialogView.findViewById(R.id.product_info_dialog_added_checkbox);
+        final TextView amountTextView = dialogView.findViewById(R.id.product_info_dialog_amount);
+        TextView editAmountTextView = dialogView.findViewById(R.id.product_info_dialog_edit_amount);
 
-            String nameText = getString(R.string.product_info_dialog_heading);
-            String costText = getString(R.string.product_info_dialog_cost);
+        String nameText = getString(R.string.product_info_dialog_heading);
+        String costText = getString(R.string.product_info_dialog_cost);
+        String amountText = getString(R.string.product_info_amount_count);
 
-            // Gets a larger image size by replacing the size in the URL
-            String largerImage = this.product.getImageURL().replace("90x90", "225x225");
+        // Gets a larger image size by replacing the size in the URL
+        String largerImage = this.product.getImageURL().replace("90x90", "225x225");
 
-            Product productFromShoppingList = ShoppingList.getInstance(dialogView.getContext()).get(product.getTPNB());
+        Product productFromShoppingList = ShoppingList.getInstance(dialogView.getContext()).get(product.getTPNB());
 
-            addedCheckBox.setChecked(productFromShoppingList != null);
+        addedCheckBox.setChecked(productFromShoppingList != null);
 
-            addedCheckBox.setOnCheckedChangeListener(this.getOnCheckBoxChangeListener(product));
+        addedCheckBox.setOnCheckedChangeListener(this.getOnCheckBoxChangeListener(product));
 
-            nameTextView.setText(nameText.replace("{product_name}", product.getName()));
-            costTextView.setText(costText.replace("{cost}", String.format("%.2f", product.getCost())));
-            Picasso.get().load(largerImage).into(imageView);
+        nameTextView.setText(nameText.replace("{product_name}", product.getName()));
+        costTextView.setText(costText.replace("{cost}", String.format("%.2f", product.getCost())));
+        amountTextView.setText(amountText.replace("{amount}", "" + product.getAmount()));
+        Picasso.get().load(largerImage).into(imageView);
 
-            editAmountTextView.setOnClickListener(this.onEditAmountClick(amountTextView));
-        }
+        editAmountTextView.setOnClickListener(this.onEditAmountClick(product, dialogView));
 
         // Start building the Dialog
         builder
@@ -145,28 +141,22 @@ public class ProductInfoDialog extends DialogFragment
     }
 
     /**
-     * Creates the OnClickListener for when the user wishes to change the amount of the Product
-     * they would like.
+     * Creates an OnClick listener for when the user wants to edit the amount of the Product.
      *
-     * @param amountTextView TextView to update.
-     * @return The OnClickListener.
+     * @param product The Product to change the amount of.
+     * @param view The View used in order to show the amount dialog.
+     * @return The OnClick listener to add to the TextView.
      */
-    private View.OnClickListener onEditAmountClick(final TextView amountTextView)
+    private View.OnClickListener onEditAmountClick(final Product product, final View view)
     {
         return new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                // Remove amount dialog for now
-                // Until Amount attribute is added to products
-
-                /*ProductAmountDialog productAmountDialog = new ProductAmountDialog();
-
-                productAmountDialog.setAmountTextView(amountTextView);
-                productAmountDialog.setAmount(4);
-
-                productAmountDialog.show(getFragmentManager(), "amount_dialog");*/
+                ProductAmountDialog
+                    .create(product, view)
+                    .show(getFragmentManager(), "amount_dialog");
             }
         };
     }
