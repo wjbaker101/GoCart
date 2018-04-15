@@ -147,11 +147,9 @@ public class ShoppingList
         // Then overrides the current Product with a new Product
         if (this.items.containsKey(tpnb))
         {
-            Product newProduct = this.items.get(tpnb).setChecked(isChecked);
+            this.items.get(tpnb).setChecked(isChecked);
 
-            this.items.put(tpnb, newProduct);
-
-            DatabaseStorage.query(this.context).updateProduct(newProduct);
+            DatabaseStorage.query(this.context).updateProduct(this.items.get(tpnb));
         }
     }
 
