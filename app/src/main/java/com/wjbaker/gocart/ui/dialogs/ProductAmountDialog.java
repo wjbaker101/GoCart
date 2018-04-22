@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
+import com.wjbaker.gocart.shopping.ShoppingList;
 
 /**
  * Created by William on 08/04/2018.
@@ -96,7 +97,7 @@ public class ProductAmountDialog extends DialogFragment
 
                 amountTextView.setText(amountText.replace("{amount}", "" + newAmount));
 
-                product.setAmount(newAmount);
+                ShoppingList.getInstance(view.getContext()).setProductAmount(product.getTPNB(), newAmount);
             }
         };
     }
