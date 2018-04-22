@@ -18,6 +18,8 @@ import com.wjbaker.gocart.ui.dialogs.ProductInfoDialog;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by William on 15/03/2018.
  */
@@ -74,9 +76,25 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
         TextView nameTextView = this.view.findViewById(R.id.product_item_shopping_name);
         TextView costTextView = this.view.findViewById(R.id.product_item_shopping_cost);
         ImageView imageView = this.view.findViewById(R.id.product_item_shopping_image);
+        TextView amountTextView = this.view.findViewById(R.id.product_item_shopping_amount);
+
+        String costText = this.view.getContext().getResources().getString(R.string.product_item_shopping_cost);
+        String amountText = this.view.getContext().getResources().getString(R.string.product_item_shopping_amount);
+
+        // Checks whether the user wishes to purchase more than 1 Product
+        // If they do, display the amount so it's visible whilst they are shopping
+        if (product.getAmount() > 1)
+        {
+            amountTextView.setVisibility(View.VISIBLE);
+            amountTextView.setText(amountText.replace("{amount}", "" + product.getAmount()));
+        }
+        else
+        {
+            amountTextView.setVisibility(View.GONE);
+        }
 
         nameTextView.setText(product.getName());
-        costTextView.setText(String.format("£%.2f", product.getCost()));
+        costTextView.setText(costText.replace("{cost}", String.format("%.2f", product.getCost())));
         Picasso.get().load(product.getImageURL()).into(imageView);
 
         ProductItemShoppingView productItemView = this.view.findViewById(R.id.product_item_shopping_content);
@@ -157,7 +175,7 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
             public void onClick(View view)
             {
                 ProductInfoDialog
-                    .create(product, view)
+                    .create(product, view, oldItemContainer)
                     .show(mainActivity.getFragmentManager(), "product_info");
             }
         };
