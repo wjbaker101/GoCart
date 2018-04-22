@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
+import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;
 
 /**
  * Created by William on 07/04/2018.
@@ -33,6 +34,8 @@ public class ProductInfoDialog extends DialogFragment
      * The View that was clicked in order to show this dialog.
      */
     private View view;
+
+    private ShoppingListProductAdapter shoppingListProductAdapter;
 
     /**
      * Sets the Product.
@@ -54,6 +57,11 @@ public class ProductInfoDialog extends DialogFragment
         this.view = view;
     }
 
+    public void setShoppingListProductAdapter(ShoppingListProductAdapter shoppingListProductAdapter)
+    {
+        this.shoppingListProductAdapter = shoppingListProductAdapter;
+    }
+
     /**
      * Creates a new dialog, specifying the information to pass into it.
      *
@@ -63,10 +71,16 @@ public class ProductInfoDialog extends DialogFragment
      */
     public static ProductInfoDialog create(Product product, View view)
     {
+        return create(product, view, null);
+    }
+
+    public static ProductInfoDialog create(Product product, View view, ShoppingListProductAdapter shoppingListProductAdapter)
+    {
         ProductInfoDialog dialog = new ProductInfoDialog();
 
         dialog.setProduct(product);
         dialog.setView(view);
+        dialog.setShoppingListProductAdapter(shoppingListProductAdapter);
 
         return dialog;
     }
@@ -118,7 +132,7 @@ public class ProductInfoDialog extends DialogFragment
         // Start building the Dialog
         builder
             .setView(dialogView)
-            .setPositiveButton("Done", this.onDone());
+            .setPositiveButton("Done", this.onDone(addedCheckBox));
 
         return builder.create();
     }
@@ -128,14 +142,22 @@ public class ProductInfoDialog extends DialogFragment
      *
      * @return OnClickListener to add to the positive button.
      */
-    private DialogInterface.OnClickListener onDone()
+    private DialogInterface.OnClickListener onDone(final CheckBox addedCheckBox)
     {
         return new DialogInterface.OnClickListener()
         {
             @Override
             public void onClick(DialogInterface dialog, int id)
             {
-                System.out.println("Pressed OK!");
+                if (shoppingListProductAdapter != null)
+                {
+                    if (!addedCheckBox.isChecked())
+                    {
+                        shoppingListProductAdapter.removeItem(product);
+                    }
+
+                    shoppingListProductAdapter.updateItem(product);
+                }
             }
         };
     }
@@ -144,10 +166,10 @@ public class ProductInfoDialog extends DialogFragment
      * Creates an OnClick listener for when the user wants to edit the amount of the Product.
      *
      * @param product The Product to change the amount of.
-     * @param view The View used in order to show the amount dialog.
+     * @param infoDialogView The View used in order to show the amount dialog.
      * @return The OnClick listener to add to the TextView.
      */
-    private View.OnClickListener onEditAmountClick(final Product product, final View view)
+    private View.OnClickListener onEditAmountClick(final Product product, final View infoDialogView)
     {
         return new View.OnClickListener()
         {
@@ -155,7 +177,7 @@ public class ProductInfoDialog extends DialogFragment
             public void onClick(View view)
             {
                 ProductAmountDialog
-                    .create(product, view)
+                    .create(product, infoDialogView)
                     .show(getFragmentManager(), "amount_dialog");
             }
         };
