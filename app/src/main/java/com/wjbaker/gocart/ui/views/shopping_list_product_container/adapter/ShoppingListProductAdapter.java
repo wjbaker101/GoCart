@@ -97,6 +97,16 @@ public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<Sh
     }
 
     /**
+     * Updates the given product.
+     *
+     * @param product The Product that has possibly been changed.
+     */
+    public void updateItem(Product product)
+    {
+        this.notifyItemChanged(this.dataset.indexOf(product));
+    }
+
+    /**
      * Gets the number of products currently in the RecyclerView.
      *
      * @return Number of products.
