@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -68,12 +69,19 @@ public class SearchActivity extends AppCompatActivity
      */
     private EditText searchTextBox;
 
+    /**
+     * Called when the activity is shown but not resumed.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_search);
+
+        this.dashboardNavigation = new DashboardNavigation(this);
 
         this.setupViews();
 
@@ -83,12 +91,22 @@ public class SearchActivity extends AppCompatActivity
     }
 
     /**
+     * Called when the activity is resumed.<br>
+     * e.g. When the back button is pressed.
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        this.dashboardNavigation.updateSelectedIcon();
+    }
+
+    /**
      * Stores the views from the activity into the respective objects.
      */
     private void setupViews()
     {
-        this.initNavigation();
-
         this.initProductContainer();
 
         this.searchTextBox = findViewById(R.id.textbox_search);
@@ -101,21 +119,6 @@ public class SearchActivity extends AppCompatActivity
         this.loadingIcon = findViewById(R.id.loading_icon);
         this.loadingIcon.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         this.setLoading(false);
-    }
-
-    /**
-     * Sets up the bottom navigation dashboard.<br>
-     * Sets the currently selected item to be search.
-     */
-    private void initNavigation()
-    {
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-
-        this.dashboardNavigation = new DashboardNavigation(this);
-
-        navigation.setSelectedItemId(R.id.navigation_search);
-
-        navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
     }
 
     /**

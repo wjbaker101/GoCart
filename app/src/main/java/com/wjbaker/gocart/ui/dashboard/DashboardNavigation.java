@@ -21,6 +21,11 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
     private Activity currentActivity;
 
     /**
+     * Stores the view for the dashboard.
+     */
+    private BottomNavigationView dashboardNavigationView;
+
+    /**
      * Allows an activity to create the dashboard navigation.
      *
      * @param currentActivity The current activity.
@@ -28,6 +33,27 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
     public DashboardNavigation(Activity currentActivity)
     {
         this.currentActivity = currentActivity;
+
+        dashboardNavigationView = this.currentActivity.findViewById(R.id.navigation);
+
+        dashboardNavigationView.setOnNavigationItemSelectedListener(this);
+
+        this.updateSelectedIcon();
+    }
+
+    /**
+     * Updates the selected item, according to the current activity being shown.
+     */
+    public void updateSelectedIcon()
+    {
+        if (this.currentActivity.getClass() == MainActivity.class)
+        {
+            dashboardNavigationView.setSelectedItemId(R.id.navigation_list);
+        }
+        else if (this.currentActivity.getClass() == SearchActivity.class)
+        {
+            dashboardNavigationView.setSelectedItemId(R.id.navigation_search);
+        }
     }
 
     /**
