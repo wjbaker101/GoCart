@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity
 {
-    private DashboardNavigation dashboardNavigation = new DashboardNavigation(this);
+    private DashboardNavigation dashboardNavigation;
 
     /**
      * TableLayout for displaying the unchecked items in the shopping list.
@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity
 
     private TextView uncheckedTextView;
 
+    /**
+     * Called when the activity is shown but not resumed.
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -56,13 +61,25 @@ public class MainActivity extends AppCompatActivity
         this.checkedTextView = findViewById(R.id.checked_counter);
         this.uncheckedTextView = findViewById(R.id.unchecked_counter);
 
-        this.initNavigation();
+        this.dashboardNavigation = new DashboardNavigation(this);
 
         this.setupProducts();
 
         this.addProducts();
 
         this.scrollToTop();
+    }
+
+    /**
+     * Called when the activity is resumed.<br>
+     * e.g. When the back button is pressed.
+     */
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+
+        this.dashboardNavigation.updateSelectedIcon();
     }
 
     /**
@@ -128,15 +145,6 @@ public class MainActivity extends AppCompatActivity
         }
 
         this.updateCounters();
-    }
-
-    private void initNavigation()
-    {
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-
-        navigation.setSelectedItemId(R.id.navigation_list);
-
-        navigation.setOnNavigationItemSelectedListener(this.dashboardNavigation);
     }
 
     public void incrementCheckedItemsCount(int value)
