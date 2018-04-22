@@ -144,10 +144,29 @@ public class ShoppingList
     public void setProductChecked(int tpnb, boolean isChecked)
     {
         // Makes sure the Product exists
-        // Then overrides the current Product with a new Product
+        // Then updates the Product's isChecked property as well as the database
         if (this.items.containsKey(tpnb))
         {
             this.items.get(tpnb).setChecked(isChecked);
+
+            DatabaseStorage.query(this.context).updateProduct(this.items.get(tpnb));
+        }
+    }
+
+    /**
+     * Updates the Product with a new amount.<br>
+     * Then updates the database with the data of the Product.
+     *
+     * @param tpnb ID of the Product to update.
+     * @param amount The new amount to set to the Product.
+     */
+    public void setProductAmount(int tpnb, int amount)
+    {
+        // Makes sure the Product exists
+        // Then updates the Product's amount property as well as the database
+        if (this.items.containsKey(tpnb))
+        {
+            this.items.get(tpnb).setAmount(amount);
 
             DatabaseStorage.query(this.context).updateProduct(this.items.get(tpnb));
         }
