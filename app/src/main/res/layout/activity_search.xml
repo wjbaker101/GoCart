@@ -41,9 +41,7 @@
                 android:id="@+id/heading_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/search_input_heading"
-                tools:layout_editor_absoluteX="62dp"
-                tools:layout_editor_absoluteY="49dp" />
+                android:text="@string/search_input_heading" />
 
             <EditText
                 android:id="@+id/textbox_search"
@@ -56,8 +54,7 @@
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textCursorDrawable="@null"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="107dp" />
+                android:imeOptions="flagNoExtractUi" />
 
         </LinearLayout>
 
