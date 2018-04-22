@@ -71,22 +71,56 @@
                 android:paddingRight="8dp"
                 android:paddingTop="16dp">
 
-                <TextView
-                    android:id="@+id/checked_counter"
+                <LinearLayout
+                    android:id="@+id/checked_visibility_container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/checked_items_counter"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/heading_checked"
+                    <TextView
+                        android:id="@+id/checked_counter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/checked_items_counter"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+                    <ImageView
+                        android:id="@+id/checked_visibility_arrow"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/icon_arrow_up"
+                        android:layout_marginLeft="8dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/list_heading_checked_items" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/heading_checked"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/list_heading_checked_items" />
+
+                    <TextView
+                        android:id="@+id/heading_checked_hidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="4dp"
+                        android:text="@string/list_heading_checked_items_hidden"
+                        android:textStyle="italic"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
 
             </RelativeLayout>
 
