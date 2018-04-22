@@ -70,13 +70,23 @@
                     android:padding="8dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerInParent="true"
-                    android:background="@color/white">
+                    android:background="@color/white"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/product_item_shopping_cost"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="£0.00" />
+                        android:text="@string/product_item_shopping_cost"
+                        android:layout_gravity="right" />
+
+                    <TextView
+                        android:id="@+id/product_item_shopping_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/product_item_shopping_amount"
+                        android:layout_gravity="right"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                 </LinearLayout>
 
