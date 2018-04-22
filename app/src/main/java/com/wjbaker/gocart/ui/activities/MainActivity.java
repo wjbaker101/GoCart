@@ -6,6 +6,9 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
@@ -45,6 +48,16 @@ public class MainActivity extends AppCompatActivity
     private TextView uncheckedTextView;
 
     /**
+     * Stores the View for the clickable area for the visibility of the checked items.
+     */
+    private LinearLayout checkedVisibilityContainer;
+
+    /**
+     * Whether or not the checked items should be shown or not.
+     */
+    private boolean isCheckedVisible;
+
+    /**
      * Called when the activity is shown but not resumed.
      *
      * @param savedInstanceState
@@ -60,6 +73,11 @@ public class MainActivity extends AppCompatActivity
 
         this.checkedTextView = findViewById(R.id.checked_counter);
         this.uncheckedTextView = findViewById(R.id.unchecked_counter);
+
+        this.checkedVisibilityContainer = findViewById(R.id.checked_visibility_container);
+        this.checkedVisibilityContainer.setOnClickListener(this.getvisiblityClickListener());
+
+        this.isCheckedVisible = true;
 
         this.dashboardNavigation = new DashboardNavigation(this);
 
@@ -80,6 +98,49 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         this.dashboardNavigation.updateSelectedIcon();
+    }
+
+    /**
+     * Creates an OnClick listener for the area the user will click when they want to
+     * toggle the visibility of the checked items.
+     *
+     * @return The OnClick listener to add to the View.
+     */
+    private View.OnClickListener getvisiblityClickListener()
+    {
+        final ImageView visiblityArrowImageView = findViewById(R.id.checked_visibility_arrow);
+        final TextView checkedHiddenTextView = findViewById(R.id.heading_checked_hidden);
+
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                // Toggles the visibility of the items
+                isCheckedVisible = !isCheckedVisible;
+
+                if (isCheckedVisible)
+                {
+                    // Updates arrow to point upwards
+                    visiblityArrowImageView.setImageDrawable(getDrawable(R.drawable.icon_arrow_up));
+
+                    // Shows the list of items
+                    // Hides the hidden message
+                    checkedItemContainer.setVisibility(View.VISIBLE);
+                    checkedHiddenTextView.setVisibility(View.GONE);
+                }
+                else
+                {
+                    // Updates the arrow to point downwards
+                    visiblityArrowImageView.setImageDrawable(getDrawable(R.drawable.icon_arrow_down));
+
+                    // Hides the list of items
+                    // Shows the hidden message
+                    checkedItemContainer.setVisibility(View.GONE);
+                    checkedHiddenTextView.setVisibility(View.VISIBLE);
+                }
+            }
+        };
     }
 
     /**
