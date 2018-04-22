@@ -17,6 +17,7 @@
     -->
     <string name="list_heading_unchecked_items">Shopping List:</string>
     <string name="list_heading_checked_items">Checked Items:</string>
+    <string name="list_heading_checked_items_hidden">(Hidden)</string>
 
     <string name="product_item_shopping_amount">&#215; {amount}</string>
     <string name="product_item_shopping_cost">£{cost}</string>
