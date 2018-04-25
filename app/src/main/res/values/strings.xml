@@ -26,7 +26,7 @@
         Labels displaying the number of checked or unchecked items.
     -->
     <string name="checked_items_counter">({count})</string>
-    <string name="unchecked_items_counter">({count})</string>
+    <string name="unchecked_items_counter">£{total_cost} ({count})</string>
 
     <!--
         Label for the EditText in the search activity.
