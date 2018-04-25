@@ -227,7 +227,14 @@ public class MainActivity extends AppCompatActivity
         String checkedTemplate = getResources().getString(R.string.checked_items_counter);
         String uncheckedTemplate = getResources().getString(R.string.unchecked_items_counter);
 
-        this.checkedTextView.setText(checkedTemplate.replace("{count}", "" + this.checkedItemsCount));
-        this.uncheckedTextView.setText(uncheckedTemplate.replace("{count}", "" + this.uncheckedItemsCount));
+        String checkedText = checkedTemplate
+                                .replace("{count}", "" + this.checkedItemsCount);
+
+        String uncheckedText = uncheckedTemplate
+                                .replace("{count}", "" + this.uncheckedItemsCount)
+                                .replace("{total_cost}", String.format("%.2f", this.uncheckedItemContainerAdapter.getTotalCost()));
+
+        this.checkedTextView.setText(checkedText);
+        this.uncheckedTextView.setText(uncheckedText);
     }
 }
