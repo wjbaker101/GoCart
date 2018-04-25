@@ -128,6 +128,25 @@ public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<Sh
     }
 
     /**
+     * Calculates the total cost of the products in the list.
+     *
+     * @return Value of the total cost (in GBP).
+     */
+    public float getTotalCost()
+    {
+        float total = 0.0F;
+
+        for (Product product : this.dataset)
+        {
+            // Calculates total cost for the current product
+            // then adds it to the cumulative total for all products
+            total += (product.getCost() * product.getAmount());
+        }
+
+        return total;
+    }
+
+    /**
      * Called whenever a Product is added or removed from the RecyclerView.<br>
      *
      * Allows instances to implement this method so that they have the
