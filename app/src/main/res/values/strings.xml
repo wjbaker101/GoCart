@@ -43,4 +43,7 @@
     <string name="product_info_amount_edit">Edit</string>
     <string name="product_info_added_label">Add to Shopping List</string>
 
+    <string name="store_select_dialog_heading">{store_name}</string>
+    <string name="store_select_dialog_message">Would you like to select this as your main tescoStore?</string>
+
 </resources>
