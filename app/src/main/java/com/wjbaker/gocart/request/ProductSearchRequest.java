@@ -57,11 +57,7 @@ public class ProductSearchRequest
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError
             {
-                Map<String, String>  params = new HashMap<String, String>();
-
-                params.put("Ocp-Apim-Subscription-Key", "5ae0e6edbc054be791b28bbe5ceae194");
-
-                return params;
+                return SubscriptionKey.getHeaders();
             }
         };
 
