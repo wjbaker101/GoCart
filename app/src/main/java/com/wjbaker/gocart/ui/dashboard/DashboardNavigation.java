@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.ui.activities.MainActivity;
 import com.wjbaker.gocart.ui.activities.SearchActivity;
+import com.wjbaker.gocart.ui.activities.StoresActivity;
 
 /**
  * Created by William on 09/03/2018.
@@ -53,6 +54,10 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
         else if (this.currentActivity.getClass() == SearchActivity.class)
         {
             dashboardNavigationView.setSelectedItemId(R.id.navigation_search);
+        }
+        else if (this.currentActivity.getClass() == StoresActivity.class)
+        {
+            dashboardNavigationView.setSelectedItemId(R.id.navigation_stores);
         }
     }
 
@@ -106,6 +111,7 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
      */
     private boolean onNavigateStores()
     {
+        this.switchActivity(StoresActivity.class);
 
         return true;
     }

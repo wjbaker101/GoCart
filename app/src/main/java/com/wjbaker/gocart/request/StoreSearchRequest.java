@@ -15,19 +15,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by William on 11/03/2018.
+ * Created by William on 25/04/2018.
  */
-public class ProductSearchRequest
+public class StoreSearchRequest
 {
-    private static ProductSearchRequest instance;
+    private static StoreSearchRequest instance;
 
     private Context context;
 
     private RequestQueue queue;
 
-    private final String url = "https://dev.tescolabs.com/grocery/products/?query=%s&offset=0&limit=20";
+    private final String url = "https://dev.tescolabs.com/locations/search?offset=0&limit=4&sort=near:%s";
 
-    public ProductSearchRequest(Context context)
+    public StoreSearchRequest(Context context)
     {
         this.context = context;
 
@@ -40,11 +40,11 @@ public class ProductSearchRequest
      * @param context Context of the app.
      * @return The singleton.
      */
-    public static synchronized ProductSearchRequest getInstance(Context context)
+    public static synchronized StoreSearchRequest getInstance(Context context)
     {
         if (instance == null)
         {
-            instance = new ProductSearchRequest(context);
+            instance = new StoreSearchRequest(context);
         }
 
         return instance;
