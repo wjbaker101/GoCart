@@ -23,11 +23,13 @@
         <activity
             android:name=".ui.activities.MainActivity"
             android:label="@string/app_name">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
 
         <!--
@@ -39,9 +41,23 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
+        <!--
+            Activity for the Store screen.
+            Allows the user to view information about their selected Tesco Store.
+        -->
         <activity android:name=".ui.activities.StoresActivity" />
 
-        <activity android:name=".ui.activities.SearchStoreActivity"></activity>
+        <!--
+            Activity for the Store search screen.
+            Allows the user to search for specific Tesco stores.
+        -->
+        <activity android:name=".ui.activities.SearchStoreActivity" />
+
+        <!--
+            Activity for the tutorial screen.
+            Allows the user to view information and instructions about the app.
+        -->
+        <activity android:name=".ui.activities.TutorialActivity" />
 
     </application>
 
