@@ -1,11 +1,13 @@
 package com.wjbaker.gocart.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -78,9 +80,38 @@ public class SearchStoreActivity extends AppCompatActivity
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.tutorial_open:
+                this.openTutorial();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Create the menu on the Action Bar.<br>
+     * Adds the "?" button, allowing the user to view the tutorial page.
+     *
+     * @param menu The current menu.
+     * @return True if the menu was created.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.tutorial, menu);
+
+        return true;
+    }
+
+    /**
+     * Opens the tutorial Activity.
+     */
+    private void openTutorial()
+    {
+        Intent openTutorial = new Intent(this, TutorialActivity.class);
+        openTutorial.putExtra("page", "tesco-store-search");
+
+        this.startActivity(openTutorial);
     }
 
     /**
