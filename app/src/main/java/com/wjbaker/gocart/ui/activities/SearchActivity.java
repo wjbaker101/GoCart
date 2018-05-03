@@ -1,6 +1,7 @@
 package com.wjbaker.gocart.ui.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewDebug;
 import android.view.inputmethod.InputMethodManager;
@@ -100,6 +103,48 @@ public class SearchActivity extends AppCompatActivity
         super.onResume();
 
         this.dashboardNavigation.updateSelectedIcon();
+    }
+
+    /**
+     * Create the menu on the Action Bar.<br>
+     * Adds the "?" button, allowing the user to view the tutorial page.
+     *
+     * @param menu The current menu.
+     * @return True if the menu was created.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.tutorial, menu);
+
+        return true;
+    }
+
+    /**
+     * Called when a menu option is pressed.
+     *
+     * @param item MenuItem that was pressed.
+     * @return True if an action occurred.
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+
+        if (id == R.id.tutorial_open)
+        {
+            // Create the Intent for switching to the tutorial Activity
+            // Pass "shopping-list" as the page, so the page is scrolled to the
+            // relevant content to this Activity
+            Intent openTutorial = new Intent(this, TutorialActivity.class);
+            openTutorial.putExtra("page", "product-search");
+
+            this.startActivity(openTutorial);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     /**
