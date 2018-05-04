@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <provider
+            android:authorities="com.wjbaker.gocart.products"
+            android:name="com.wjbaker.gocart.database.ProductsProvider" />
+
         <!--
             Activity for the main screen.
             Displays the user's shopping list.
