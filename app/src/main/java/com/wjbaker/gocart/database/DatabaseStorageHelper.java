@@ -1,8 +1,12 @@
 package com.wjbaker.gocart.database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.text.TextUtils;
 
 import com.wjbaker.gocart.database.tables.ShoppingListTable;
@@ -124,5 +128,59 @@ public class DatabaseStorageHelper extends SQLiteOpenHelper
         String columns = TextUtils.join(", ", columnInformation);
 
         database.execSQL(String.format("CREATE TABLE %s (%s)", TescoStoresTable.TABLE_NAME, columns));
+    }
+
+    public Cursor getProducts(String id, String[] projection, String selection, String[] selectionArgs, String sortOrder)
+    {
+        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+
+        builder.setTables(ShoppingListTable.TABLE_NAME);
+
+        if (id != null) builder.appendWhere(String.format("%s=%s", ShoppingListTable.KEY_TPNB, id));
+
+        if (sortOrder == null || sortOrder == "") sortOrder = ShoppingListTable.KEY_TPNB;
+
+        Cursor cursor = builder.query(this.getReadableDatabase(), projection, selection, selectionArgs, null, null, sortOrder);
+
+        return cursor;
+    }
+
+    public long addProduct(ContentValues values) throws SQLException
+    {
+        long id = this.getWritableDatabase().insert(ShoppingListTable.TABLE_NAME, "", values);
+
+        if (id <= 0) throw new SQLException("Unabled to add a new Product.");
+
+        return id;
+    }
+
+    public int deleteProduct(String id)
+    {
+        if (id == null)
+        {
+            return this.getWritableDatabase().delete(ShoppingListTable.TABLE_NAME, null, null);
+        }
+        else
+        {
+            String whereClause = String.format("%s=?", ShoppingListTable.KEY_TPNB);
+            String[] whereArgs = { id };
+
+            return this.getWritableDatabase().delete(ShoppingListTable.TABLE_NAME, whereClause, whereArgs);
+        }
+    }
+
+    public int updateProduct(String id, ContentValues values)
+    {
+        if (id == null)
+        {
+            return this.getWritableDatabase().update(ShoppingListTable.TABLE_NAME, values, null, null);
+        }
+        else
+        {
+            String whereClause = String.format("%s=?", ShoppingListTable.KEY_TPNB);
+            String[] whereArgs = { id };
+
+            return this.getWritableDatabase().update(ShoppingListTable.TABLE_NAME, values, whereClause, whereArgs);
+        }
     }
 }
