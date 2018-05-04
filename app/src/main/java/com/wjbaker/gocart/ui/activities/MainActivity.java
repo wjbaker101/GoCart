@@ -2,7 +2,8 @@ package com.wjbaker.gocart.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
+import com.wjbaker.gocart.database.ProductsLoader;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
@@ -23,6 +25,7 @@ import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.Unche
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity
 
         this.setupProducts();
 
-        this.addProducts();
+        this.addProducts(savedInstanceState);
 
         this.scrollToTop();
     }
@@ -234,9 +237,40 @@ public class MainActivity extends AppCompatActivity
      * Adds products from the shopping list into the activity, putting them in either
      * the checked or unchecked RecyclerViews.
      */
-    private void addProducts()
+    private void addProducts(Bundle bundle)
     {
-        final Collection<Product> products = ShoppingList.getInstance(this).getProducts().values();
+        getSupportLoaderManager().initLoader(0, bundle, new LoaderManager.LoaderCallbacks<List<Product>>()
+        {
+            @Override
+            public Loader<List<Product>> onCreateLoader(final int id, final Bundle args)
+            {
+                return new ProductsLoader(MainActivity.this);
+            }
+
+            @Override
+            public void onLoadFinished(final Loader<List<Product>> loader, final List<Product> result)
+            {
+                if (result == null)
+                    return;
+
+                for (final Product product : result)
+                {
+                    if (product.isChecked())
+                    {
+                        checkedItemContainerAdapter.addItem(product);
+                    }
+                    else
+                    {
+                        uncheckedItemContainerAdapter.addItem(product);
+                    }
+                }
+            }
+
+            @Override
+            public void onLoaderReset(final Loader<List<Product>> loader) {}
+        });
+
+        /*final Collection<Product> products = ShoppingList.getInstance(this).getProducts().values();
 
         for (final Product product : products)
         {
@@ -248,7 +282,7 @@ public class MainActivity extends AppCompatActivity
             {
                 this.uncheckedItemContainerAdapter.addItem(product);
             }
-        }
+        }*/
 
         this.updateCounters();
     }
