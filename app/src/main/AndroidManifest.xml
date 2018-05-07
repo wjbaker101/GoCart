@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wjbaker.gocart">
 
     <!--
@@ -7,6 +8,7 @@
         Enables app to request the Tesco API.
     -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +21,14 @@
         <provider
             android:authorities="com.wjbaker.gocart.products"
             android:name="com.wjbaker.gocart.database.ProductsProvider" />
+
+        <receiver android:name=".broadcasts.ConnectionReceiver" >
+
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+
+        </receiver>
 
         <!--
             Activity for the main screen.
