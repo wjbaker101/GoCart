@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
 
         this.setupProducts();
 
-        this.addProducts(savedInstanceState);
+        this.addProducts();
 
         this.scrollToTop();
     }
@@ -237,6 +237,29 @@ public class MainActivity extends AppCompatActivity
      * Adds products from the shopping list into the activity, putting them in either
      * the checked or unchecked RecyclerViews.
      */
+    private void addProducts()
+    {
+        final Collection<Product> products = ShoppingList.getInstance(this).getProducts().values();
+
+        for (final Product product : products)
+        {
+            if (product.isChecked())
+            {
+                this.checkedItemContainerAdapter.addItem(product);
+            }
+            else
+            {
+                this.uncheckedItemContainerAdapter.addItem(product);
+            }
+        }
+
+        this.updateCounters();
+    }
+
+    /**
+     * Adds products from the shopping list into the activity, putting them in either
+     * the checked or unchecked RecyclerViews.
+     */
     private void addProducts(Bundle bundle)
     {
         getSupportLoaderManager().initLoader(0, bundle, new LoaderManager.LoaderCallbacks<List<Product>>()
@@ -269,20 +292,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onLoaderReset(final Loader<List<Product>> loader) {}
         });
-
-        /*final Collection<Product> products = ShoppingList.getInstance(this).getProducts().values();
-
-        for (final Product product : products)
-        {
-            if (product.isChecked())
-            {
-                this.checkedItemContainerAdapter.addItem(product);
-            }
-            else
-            {
-                this.uncheckedItemContainerAdapter.addItem(product);
-            }
-        }*/
 
         this.updateCounters();
     }
