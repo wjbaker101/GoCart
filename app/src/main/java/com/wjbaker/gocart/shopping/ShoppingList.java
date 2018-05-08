@@ -172,6 +172,16 @@ public class ShoppingList
         }
     }
 
+    public void setProductPosition(int tpnb, int position)
+    {
+        if (this.items.containsKey(tpnb))
+        {
+            this.items.get(tpnb).setPosition(position);
+
+            DatabaseStorage.query(this.context).updateProduct(this.items.get(tpnb));
+        }
+    }
+
     /**
      * Allows the class to act as a singleton.<br>
      * Returns the current ShoppingList object, or creates a new one if none exists.
