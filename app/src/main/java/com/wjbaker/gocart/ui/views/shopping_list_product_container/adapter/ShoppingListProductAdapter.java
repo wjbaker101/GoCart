@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
+import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.activities.MainActivity;
 import com.wjbaker.gocart.ui.dialogs.ProductInfoDialog;
+import com.wjbaker.gocart.ui.views.shopping_list_product_container.ProductMovementHelper;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.ShoppingListProductViewHolder;
 
 import java.util.List;
@@ -18,7 +20,7 @@ import java.util.List;
  *
  * Generic class for the adapters for the shopping list.
  */
-public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<ShoppingListProductViewHolder>
+public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<ShoppingListProductViewHolder> implements ProductMovementHelper.ActionCompletedContract
 {
     /**
      * Stores the list of Products to be displayed onto the RecyclerView.
@@ -82,6 +84,16 @@ public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<Sh
         this.dataset.add(product);
 
         this.onItemChange(product, true);
+    }
+
+    /**
+     * Removes all Products from the RecyclerView.
+     */
+    public void removeAll()
+    {
+        this.dataset.clear();
+
+        this.notifyDataSetChanged();
     }
 
     /**
@@ -156,4 +168,44 @@ public abstract class ShoppingListProductAdapter extends RecyclerView.Adapter<Sh
      * @param isAdded Whether the Product has just been added or removed.
      */
     protected abstract void onItemChange(Product product, boolean isAdded);
+
+    /**
+     * Called when the position of the Product changes whilst it is being dragged.
+     *
+     * @param oldPosition Index of the position of the Product before being dragged.
+     * @param newPosition Index of the current position of the Product.
+     */
+    @Override
+    public void onViewMoved(int oldPosition, int newPosition)
+    {
+        // The Product being dragged
+        Product product = this.dataset.get(oldPosition);
+
+        // Move the Product
+        this.dataset.remove(oldPosition);
+        this.dataset.add(newPosition, product);
+
+        // Update the position of the Product
+        product.setPosition(newPosition);
+
+        this.updateProductPositions(oldPosition, newPosition);
+    }
+
+    /**
+     * Updates the positions of all Products in the RecyclerView.
+     *
+     * @param oldPosition Index of the position of the Product before being dragged.
+     * @param newPosition Index of the current position of the Product.
+     */
+    public void updateProductPositions(int oldPosition, int newPosition)
+    {
+        ShoppingList shoppingList = ShoppingList.getInstance(this.mainActivity.getBaseContext());
+
+        // Update the positions of the swapped Products
+        shoppingList.setProductPosition(this.dataset.get(newPosition).getTPNB(), newPosition);
+        shoppingList.setProductPosition(this.dataset.get(oldPosition).getTPNB(), oldPosition);
+
+        // Update the adapter
+        this.notifyItemMoved(oldPosition, newPosition);
+    }
 }

@@ -8,6 +8,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +21,15 @@ import com.wjbaker.gocart.database.ProductsLoader;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
+import com.wjbaker.gocart.ui.views.shopping_list_product_container.ProductMovementHelper;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.CheckedShoppingListProductAdapter;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.UncheckedShoppingListProductAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity
@@ -227,11 +232,31 @@ public class MainActivity extends AppCompatActivity
         this.uncheckedItemContainer.setNestedScrollingEnabled(false);
         this.uncheckedItemContainer.setHasFixedSize(false);
 
+        ProductMovementHelper productMovementHelperUnchecked = new ProductMovementHelper(this.uncheckedItemContainerAdapter);
+        ItemTouchHelper touchHelperUnchecked = new ItemTouchHelper(productMovementHelperUnchecked);
+        touchHelperUnchecked.attachToRecyclerView(this.uncheckedItemContainer);
+
         this.checkedItemContainer.setAdapter(this.checkedItemContainerAdapter);
         this.checkedItemContainer.setLayoutManager(linearLayoutManagerChecked);
         this.checkedItemContainer.setNestedScrollingEnabled(false);
         this.checkedItemContainer.setHasFixedSize(false);
+
+        ProductMovementHelper productMovementHelperChecked = new ProductMovementHelper(this.checkedItemContainerAdapter);
+        ItemTouchHelper touchHelperChecked = new ItemTouchHelper(productMovementHelperChecked);
+        touchHelperChecked.attachToRecyclerView(this.checkedItemContainer);
     }
+
+    /**
+     * Compares 2 Products in ascending order of their positions.
+     */
+    private Comparator<Product> sortProductsByPosition = new Comparator<Product>()
+    {
+        @Override
+        public int compare(Product p1, Product p2)
+        {
+            return p1.getPosition() - p2.getPosition();
+        }
+    };
 
     /**
      * Adds products from the shopping list into the activity, putting them in either
@@ -239,7 +264,13 @@ public class MainActivity extends AppCompatActivity
      */
     private void addProducts()
     {
-        final Collection<Product> products = ShoppingList.getInstance(this).getProducts().values();
+        // Get Products from the shopping list
+        // Convert the collection into a format that can be sorted
+        final Collection<Product> productsCollection = ShoppingList.getInstance(this).getProducts().values();
+        final Product[] products = productsCollection.toArray(new Product[productsCollection.size()]);
+
+        // Sort the Products
+        Arrays.sort(products, sortProductsByPosition);
 
         for (final Product product : products)
         {

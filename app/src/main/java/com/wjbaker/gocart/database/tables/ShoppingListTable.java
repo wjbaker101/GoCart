@@ -74,6 +74,12 @@ public class ShoppingListTable
     public static final String KEY_AMOUNT = "Amount";
 
     /**
+     * Stores the "ListPosition" column of the table.<br>
+     * Store the position of the product in the shopping list.
+     */
+    public static final String KEY_POSITION = "ListPosition";
+
+    /**
      * Stores an array of all of the column names in the table.
      */
     public static final String[] COLUMNS =
@@ -88,5 +94,6 @@ public class ShoppingListTable
         KEY_IMAGE_URL,
         KEY_CHECKED,
         KEY_AMOUNT,
+        KEY_POSITION,
     };
 }

@@ -57,6 +57,25 @@ public class Product
      */
     private int amount;
 
+    /**
+     * The position of the Product in the shopping list.<br>
+     * So that the Product is in the same order each time, which the user can change.
+     */
+    private int position;
+
+    /**
+     * Create the Product with the given immutable properties
+     * and set default mutable properties.
+     *
+     * @param tpnb The unique ID of the Tesco Product, set by Tesco.
+     * @param name The name of the Product.
+     * @param description Words or phrases describing the Product.
+     * @param cost The cost of the Product (in GBP).
+     * @param quantity The pack size or weight of the contents of the Product.
+     * @param superDepartment The department of the Product.
+     * @param department A more specific department of the Product.
+     * @param imageURL URL of the image containing the Product.
+     */
     public Product(int tpnb, String name, String description, float cost, float quantity, String superDepartment, String department, String imageURL)
     {
         this.tpnb = tpnb;
@@ -70,7 +89,12 @@ public class Product
 
         this.isChecked = false;
         this.amount = 1;
+        this.position = 1;
     }
+
+    /*
+     * Getters for all properties of the Product.
+     */
 
     public int getTPNB()
     {
@@ -122,6 +146,15 @@ public class Product
         return this.amount;
     }
 
+    public int getPosition()
+    {
+        return this.position;
+    }
+
+    /*
+     * Setters for mutable properties of the Product.
+     */
+
     public void setChecked(boolean isChecked)
     {
         this.isChecked = isChecked;
@@ -130,5 +163,10 @@ public class Product
     public void setAmount(int amount)
     {
         this.amount = amount;
+    }
+
+    public void setPosition(int position)
+    {
+        this.position = position;
     }
 }
