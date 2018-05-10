@@ -23,7 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.request.ProductSearchRequest;
+import com.wjbaker.gocart.request.ProductSortSearchRequest;
 import com.wjbaker.gocart.shopping.Product;
+import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
 import com.wjbaker.gocart.ui.views.search_product_container.SearchProductAdapter;
 
@@ -32,6 +34,8 @@ import org.json.JSONObject;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -115,6 +119,7 @@ public class SearchActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
+        getMenuInflater().inflate(R.menu.search_sort, menu);
         getMenuInflater().inflate(R.menu.tutorial, menu);
 
         return true;
@@ -142,6 +147,10 @@ public class SearchActivity extends AppCompatActivity
             this.startActivity(openTutorial);
 
             return true;
+        }
+        else if (id == R.id.sort_products)
+        {
+            this.sortProducts();
         }
 
         return super.onOptionsItemSelected(item);
@@ -275,7 +284,7 @@ public class SearchActivity extends AppCompatActivity
                     {
                         JSONObject product = (JSONObject)results.get(i);
 
-                        tpnb = product.getInt("tpnb");
+                        tpnb = product.getInt("id");
                         name = product.getString("name");
                         description = "";
                         cost = (float)product.getDouble("price");
@@ -332,5 +341,108 @@ public class SearchActivity extends AppCompatActivity
 
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    /**
+     * Compares 2 Products in descending order of their health scores.
+     */
+    private Comparator<Product> sortProductsByHealthScore = new Comparator<Product>()
+    {
+        @Override
+        public int compare(Product p1, Product p2)
+        {
+            return p2.getHealthScore() - p1.getHealthScore();
+        }
+    };
+
+    /**
+     * Searches a list for a Product with the given TPNC.
+     *
+     * @param products The list of Products to search in.
+     * @param tpnc The TPNC of the Product to find.
+     * @return The correct Product, or null if none is found.
+     */
+    private Product getProductByTPNC(List<Product> products, int tpnc)
+    {
+        for (Product product : products)
+        {
+            if (product.getTPNB() == tpnc)
+            {
+                return product;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Sorts the Products in the search list by the nutritional value.
+     */
+    private void sortProducts()
+    {
+        // Stops if there are no products to sort
+        if (this.searchProductAdapter.getItemCount() == 0) return;
+
+        final List<Product> products = this.searchProductAdapter.getProducts();
+
+        setLoading(true);
+
+        ProductSortSearchRequest.getInstance(getBaseContext()).doRequest(products, new Response.Listener<JSONObject>()
+        {
+            @Override
+            public void onResponse(JSONObject response)
+            {
+                try
+                {
+                    // Get the JSONArray of Products returned in the response
+                    JSONArray responseProducts = response.getJSONArray("products");
+
+                    // Loop through each Product found
+                    for (int i = 0; i < responseProducts.length(); ++i)
+                    {
+                        // Get the individual Product
+                        JSONObject product = ((JSONObject)responseProducts.get(i));
+
+                        // Get the characteristics of the Product
+                        JSONObject productCharacteristics = product.getJSONObject("productCharacteristics");
+
+                        // Check whether the returned information contains a health score
+                        if (productCharacteristics.has("healthScore"))
+                        {
+                            // Set the health score to the Product found in the original array
+                            // with the same TPNC as the current Product
+                            getProductByTPNC(products, Integer.parseInt(product.getString("tpnc"))).setHealthScore(productCharacteristics.getInt("healthScore"));
+                        }
+
+                        // Convert the List to an Array for sorting
+                        final Product[] arrayProducts = products.toArray(new Product[products.size()]);
+
+                        // Sort the Products by health score
+                        Arrays.sort(arrayProducts, sortProductsByHealthScore);
+
+                        searchProductAdapter.removeAll();
+
+                        for (Product newProduct : arrayProducts)
+                        {
+                            searchProductAdapter.addItem(newProduct);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    //e.printStackTrace();
+                }
+
+                setLoading(false);
+            }
+        },
+        new Response.ErrorListener()
+        {
+            @Override
+            public void onErrorResponse(VolleyError error)
+            {
+                setLoading(false);
+            }
+        });
     }
 }

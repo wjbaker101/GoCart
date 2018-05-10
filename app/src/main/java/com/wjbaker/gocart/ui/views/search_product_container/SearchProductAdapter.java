@@ -97,4 +97,14 @@ public class SearchProductAdapter extends RecyclerView.Adapter<SearchProductView
     {
         return dataset.size();
     }
+
+    /**
+     * Gets the list of products in the RecyclerView.
+     *
+     * @return List of Product.
+     */
+    public List<Product> getProducts()
+    {
+        return this.dataset;
+    }
 }
