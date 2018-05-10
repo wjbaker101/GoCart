@@ -64,6 +64,11 @@ public class Product
     private int position;
 
     /**
+     * The score given by Tesco about how healthy the food product is.
+     */
+    private int healthScore;
+
+    /**
      * Create the Product with the given immutable properties
      * and set default mutable properties.
      *
@@ -90,6 +95,7 @@ public class Product
         this.isChecked = false;
         this.amount = 1;
         this.position = 1;
+        this.healthScore = 0;
     }
 
     /*
@@ -151,6 +157,11 @@ public class Product
         return this.position;
     }
 
+    public int getHealthScore()
+    {
+        return this.healthScore;
+    }
+
     /*
      * Setters for mutable properties of the Product.
      */
@@ -168,5 +179,10 @@ public class Product
     public void setPosition(int position)
     {
         this.position = position;
+    }
+
+    public void setHealthScore(int healthScore)
+    {
+        this.healthScore = healthScore;
     }
 }
