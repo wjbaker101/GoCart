@@ -25,7 +25,7 @@ public class StoreSearchRequest
 
     private RequestQueue queue;
 
-    private final String url = "https://dev.tescolabs.com/locations/search?offset=0&limit=4&sort=near:%s";
+    private final String url = "https://dev.tescolabs.com/locations/search?offset=0&limit=10&sort=near:%s";
 
     public StoreSearchRequest(Context context)
     {
