@@ -46,4 +46,9 @@
     <string name="store_select_dialog_heading">{store_name}</string>
     <string name="store_select_dialog_message">Would you like to select this as your main tescoStore?</string>
 
+    <!--
+        Labels for the Store Search Actvity.
+    -->
+    <string name="store_search_dialog_location">View in Map</string>
+
 </resources>
