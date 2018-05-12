@@ -4,14 +4,19 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.stores.TescoStore;
 import com.wjbaker.gocart.stores.UserStore;
+
+import java.util.Locale;
 
 /**
  * Created by William on 28/04/2018.
@@ -49,6 +54,10 @@ public class StoreSelectDialog extends DialogFragment
 
         headingTextView.setText(headingTextTemplate.replace("{store_name}", this.tescoStore.getName()));
 
+        LinearLayout locationLayout = dialogView.findViewById(R.id.store_search_location);
+
+        locationLayout.setOnClickListener(this.getOnLocationClickListener(this.tescoStore));
+
         // Start building the Dialog
         builder
             .setView(dialogView)
@@ -73,6 +82,29 @@ public class StoreSelectDialog extends DialogFragment
             public void onClick(DialogInterface dialogInterface, int i)
             {
                 UserStore.getInstance(getActivity().getBaseContext()).setStore(tescoStore);
+            }
+        };
+    }
+
+    /**
+     * Creates an OnClick listener for opening the location of the Tesco store in a map.
+     *
+     * @param tescoStore The Tesco store to display.
+     * @return OnClick listener.
+     */
+    private View.OnClickListener getOnLocationClickListener(final TescoStore tescoStore)
+    {
+        return new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                // Creates a URI to open the location in a map app
+                String uri = String.format(Locale.ENGLISH, "geo:0,0?q=%f,%f(%s)&zoom=16", tescoStore.getLatitude(), tescoStore.getLongtitude(), tescoStore.getName());
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+
+                view.getContext().startActivity(intent);
             }
         };
     }
