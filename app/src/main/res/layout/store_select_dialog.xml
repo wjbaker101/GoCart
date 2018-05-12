@@ -14,15 +14,15 @@
         android:padding="8dp"
         app:cardBackgroundColor="@color/colorPrimary">
 
-        <TextView
-            android:id="@+id/store_select_dialog_heading"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:text="@string/store_select_dialog_heading"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/store_select_dialog_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="@string/store_select_dialog_heading"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textColor="@color/white" />
 
     </android.support.v7.widget.CardView>
 
@@ -33,5 +33,26 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="16dp" />
+
+    <LinearLayout
+        android:id="@+id/store_search_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/icon_location" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/store_search_dialog_location" />
+
+    </LinearLayout>
 
 </LinearLayout>
