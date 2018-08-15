@@ -109,7 +109,7 @@ public class SearchProductViewHolder extends RecyclerView.ViewHolder
             public void onClick(View view)
             {
                 ProductInfoDialog
-                    .create(product, view)
+                    .create(null, product, view)
                     .show(searchActivity.getFragmentManager(), "product_info");
             }
         };

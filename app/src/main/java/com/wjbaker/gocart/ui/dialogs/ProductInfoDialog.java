@@ -18,6 +18,7 @@ import com.squareup.picasso.Picasso;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
+import com.wjbaker.gocart.ui.activities.MainActivity;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;
 
 /**
@@ -35,6 +36,8 @@ public class ProductInfoDialog extends DialogFragment
      */
     private View view;
 
+    private MainActivity mainActivity;
+
     private ShoppingListProductAdapter shoppingListProductAdapter;
 
     /**
@@ -45,6 +48,11 @@ public class ProductInfoDialog extends DialogFragment
     public void setProduct(Product product)
     {
         this.product = product;
+    }
+
+    public void setMainActivity(MainActivity mainActivity)
+    {
+        this.mainActivity = mainActivity;
     }
 
     /**
@@ -69,18 +77,19 @@ public class ProductInfoDialog extends DialogFragment
      * @param view The View that was clicked in order to show this dialog.
      * @return The new Dialog.
      */
-    public static ProductInfoDialog create(Product product, View view)
+    public static ProductInfoDialog create(MainActivity mainActivity, Product product, View view)
     {
-        return create(product, view, null);
+        return create(mainActivity, product, view, null);
     }
 
-    public static ProductInfoDialog create(Product product, View view, ShoppingListProductAdapter shoppingListProductAdapter)
+    public static ProductInfoDialog create(MainActivity mainActivity, Product product, View view, ShoppingListProductAdapter shoppingListProductAdapter)
     {
         ProductInfoDialog dialog = new ProductInfoDialog();
 
         dialog.setProduct(product);
         dialog.setView(view);
         dialog.setShoppingListProductAdapter(shoppingListProductAdapter);
+        dialog.setMainActivity(mainActivity);
 
         return dialog;
     }
@@ -177,7 +186,7 @@ public class ProductInfoDialog extends DialogFragment
             public void onClick(View view)
             {
                 ProductAmountDialog
-                    .create(product, infoDialogView)
+                    .create(mainActivity, product, infoDialogView)
                     .show(getFragmentManager(), "amount_dialog");
             }
         };

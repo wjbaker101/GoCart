@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity
         this.updateCounters();
     }
 
-    private void updateCounters()
+    public void updateCounters()
     {
         String checkedTemplate = getResources().getString(R.string.checked_items_counter);
         String uncheckedTemplate = getResources().getString(R.string.unchecked_items_counter);

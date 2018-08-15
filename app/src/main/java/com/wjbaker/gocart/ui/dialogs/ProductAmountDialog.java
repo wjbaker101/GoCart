@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
+import com.wjbaker.gocart.ui.activities.MainActivity;
 
 /**
  * Created by William on 08/04/2018.
@@ -31,6 +32,8 @@ public class ProductAmountDialog extends DialogFragment
      */
     private View view;
 
+    private MainActivity mainActivity;
+
     public void setProduct(Product product)
     {
         this.product = product;
@@ -41,13 +44,20 @@ public class ProductAmountDialog extends DialogFragment
         this.view = view;
     }
 
-    public static ProductAmountDialog create(Product product, View view)
+    public void setMainActivity(MainActivity mainActivity)
+    {
+        this.mainActivity = mainActivity;
+    }
+
+    public static ProductAmountDialog create(MainActivity mainActivity, Product product, View view)
     {
         ProductAmountDialog dialog = new ProductAmountDialog();
 
         dialog.setProduct(product);
 
         dialog.setView(view);
+
+        dialog.setMainActivity(mainActivity);
 
         return dialog;
     }
@@ -98,6 +108,8 @@ public class ProductAmountDialog extends DialogFragment
                 amountTextView.setText(amountText.replace("{amount}", "" + newAmount));
 
                 ShoppingList.getInstance(view.getContext()).setProductAmount(product.getTPNB(), newAmount);
+
+                mainActivity.updateCounters();
             }
         };
     }

@@ -175,7 +175,7 @@ public class ShoppingListProductViewHolder extends RecyclerView.ViewHolder
             public void onClick(View view)
             {
                 ProductInfoDialog
-                    .create(product, view, oldItemContainer)
+                    .create(mainActivity, product, view, oldItemContainer)
                     .show(mainActivity.getFragmentManager(), "product_info");
             }
         };
