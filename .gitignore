@@ -64,6 +64,6 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
-#SubscriptionKey.java
+SubscriptionKey.java
 clientkeystore
 gocart/release
