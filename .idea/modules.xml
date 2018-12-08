@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GoCart.iml" filepath="$PROJECT_DIR$/GoCart.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gocart/app.iml" filepath="$PROJECT_DIR$/gocart/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gocart/gocart.iml" filepath="$PROJECT_DIR$/gocart/gocart.iml" />
     </modules>
   </component>
 </project>

@@ -1,11 +1,16 @@
 package com.wjbaker.gocart.ui.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.wjbaker.gocart.R;
@@ -22,14 +27,20 @@ public class StoresActivity extends AppCompatActivity
     private DashboardNavigation dashboardNavigation;
 
     /**
-     * Stores the TextView for the edit button.
+     * Stores the button for the first time selection of a store.
      */
-    private TextView editStoreTextView;
+    private ImageButton selectStoreButton;
 
     /**
      * Stores the TextView for the TescoStore's name.
      */
     private TextView storeNameTextView;
+
+    private ScrollView storeInformationLayout;
+
+    private RelativeLayout storeFirstTimeLayout;
+
+    private FloatingActionButton editStoreFloatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,10 +51,16 @@ public class StoresActivity extends AppCompatActivity
 
         this.dashboardNavigation = new DashboardNavigation(this);
 
-        this.editStoreTextView = findViewById(R.id.search_stores_edit);
-        this.editStoreTextView.setOnClickListener(this.getSearchStoreEditOnClick());
+        this.selectStoreButton = findViewById(R.id.button_add_store);
+        this.selectStoreButton.setOnClickListener(this.createSearchStoreActivityOnClick());
 
         this.storeNameTextView = findViewById(R.id.store_name);
+
+        this.storeInformationLayout = findViewById(R.id.store_info_layout);
+        this.storeFirstTimeLayout = findViewById(R.id.store_firsttime_layout);
+
+        this.editStoreFloatingActionButton = findViewById(R.id.edit_store_floating_button);
+        this.editStoreFloatingActionButton.setOnClickListener(this.createSearchStoreActivityOnClick());
 
         this.updateStore();
     }
@@ -105,11 +122,11 @@ public class StoresActivity extends AppCompatActivity
     }
 
     /**
-     * Creates an OnClick listener for wen the user clicks the edit button.
+     * Creates an OnClick listener for opening the SearchStore activity.
      *
      * @return OnClick listener.
      */
-    private View.OnClickListener getSearchStoreEditOnClick()
+    private View.OnClickListener createSearchStoreActivityOnClick()
     {
         final StoresActivity thisActivity = this;
 
@@ -118,6 +135,8 @@ public class StoresActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+                view.startAnimation(AnimationUtils.loadAnimation(getApplicationContext(), R.anim.scale));
+
                 Intent switchActivity = new Intent(thisActivity, SearchStoreActivity.class);
 
                 thisActivity.startActivity(switchActivity);
@@ -137,7 +156,20 @@ public class StoresActivity extends AppCompatActivity
             this.storeNameTextView.setText(tescoStore.getName());
 
             this.displayDates(tescoStore);
+
+            this.setLayoutVisibility(true);
         }
+        else
+        {
+            this.setLayoutVisibility(false);
+        }
+    }
+
+    private void setLayoutVisibility(boolean isStore)
+    {
+        this.storeInformationLayout.setVisibility(isStore ? View.VISIBLE : View.GONE);
+
+        this.storeFirstTimeLayout.setVisibility(isStore ? View.GONE : View.VISIBLE);
     }
 
     private void displayDates(TescoStore tescoStore)
@@ -161,10 +193,17 @@ public class StoresActivity extends AppCompatActivity
 
     private String getFormattedDay(DayOpeningTime dayOpeningTime)
     {
-        if (!dayOpeningTime.isOpen()) return "Closed";
+        if (!dayOpeningTime.isOpen())
+        {
+            return "Closed";
+        }
+        else if (dayOpeningTime.getOpenHour() == 0 && dayOpeningTime.getCloseHour() == 2400)
+        {
+            return "24 Hours";
+        }
         else
         {
-            return (dayOpeningTime.getFormattedOpeningTime() + " - " + dayOpeningTime.getFormattedClosingTime());
+            return String.format("%s - %s", dayOpeningTime.getFormattedOpeningTime(), dayOpeningTime.getFormattedClosingTime());
         }
     }
 }

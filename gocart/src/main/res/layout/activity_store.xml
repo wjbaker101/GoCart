@@ -7,6 +7,19 @@
     android:layout_height="match_parent"
     tools:context="com.wjbaker.gocart.ui.activities.StoresActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_store_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        app:elevation="4dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/icon_edit" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
@@ -16,48 +29,37 @@
         app:menu="@menu/navigation" />
 
     <ScrollView
+        android:id="@+id/store_info_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="My Store"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
-
-                <TextView
-                    android:id="@+id/search_stores_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:text="Edit" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="32dp"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/icon_store" />
 
                 <TextView
                     android:id="@+id/store_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="32dp"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
                     android:layout_marginBottom="16dp"
+                    android:layout_weight="1"
                     android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
             </LinearLayout>
@@ -66,22 +68,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="MON"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Mon"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_monday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -91,22 +96,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="TUE"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Tues"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_tuesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -116,22 +124,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="WED"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Weds"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_wednesday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -141,22 +152,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="THU"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Thurs"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_thursday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -166,22 +180,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="FRI"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Fri"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_friday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -191,22 +208,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="SAT"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Sat"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_saturday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -216,22 +236,25 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp">
+                android:paddingBottom="12dp">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="SUN"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                    android:background="@drawable/label_border_left"
+                    android:paddingRight="8dp"
+                    android:text="Sun"
+                    android:textAlignment="textEnd"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/time_sunday"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
+                    android:paddingLeft="8dp"
                     android:text="24 hours" />
 
             </LinearLayout>
@@ -239,5 +262,49 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/store_firsttime_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/loading_background_gradient"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-64dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/store_firsttime_select_heading"
+                android:textAlignment="center"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Click to start:"
+                android:textAlignment="center" />
+
+            <ImageButton
+                android:id="@+id/button_add_store"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="24dp"
+                android:src="@drawable/icon_store_white" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

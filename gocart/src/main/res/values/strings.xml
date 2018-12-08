@@ -46,6 +46,9 @@
     <string name="store_select_dialog_heading">{store_name}</string>
     <string name="store_select_dialog_message">Would you like to select this as your main tescoStore?</string>
 
+    <string name="store_firsttime_select_heading">View opening times of your local store.</string>
+    <string name="button_add_store_text">Add a Store</string>
+
     <!--
         Labels for the Store Search Actvity.
     -->
