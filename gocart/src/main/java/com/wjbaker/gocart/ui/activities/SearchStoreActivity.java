@@ -80,9 +80,6 @@ public class SearchStoreActivity extends AppCompatActivity
             case android.R.id.home:
                 finish();
                 return true;
-            case R.id.tutorial_open:
-                this.openTutorial();
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -90,7 +87,6 @@ public class SearchStoreActivity extends AppCompatActivity
 
     /**
      * Create the menu on the Action Bar.<br>
-     * Adds the "?" button, allowing the user to view the tutorial page.
      *
      * @param menu The current menu.
      * @return True if the menu was created.
@@ -98,20 +94,7 @@ public class SearchStoreActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.tutorial, menu);
-
         return true;
-    }
-
-    /**
-     * Opens the tutorial Activity.
-     */
-    private void openTutorial()
-    {
-        Intent openTutorial = new Intent(this, TutorialActivity.class);
-        openTutorial.putExtra("page", "tesco-store-search");
-
-        this.startActivity(openTutorial);
     }
 
     /**

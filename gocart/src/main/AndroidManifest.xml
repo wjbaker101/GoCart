@@ -57,12 +57,6 @@
         <activity android:name=".ui.activities.SearchStoreActivity" />
 
         <!--
-            Activity for the tutorial screen.
-            Allows the user to view information and instructions about the app.
-        -->
-        <activity android:name=".ui.activities.TutorialActivity" />
-
-        <!--
             Activity for the loading screen.
             Shows the app's logo rather than just a blank white screen.
         -->

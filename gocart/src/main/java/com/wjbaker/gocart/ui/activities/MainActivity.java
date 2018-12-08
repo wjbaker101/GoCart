@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Create the menu on the Action Bar.<br>
-     * Adds the "?" button, allowing the user to view the tutorial page.
      *
      * @param menu The current menu.
      * @return True if the menu was created.
@@ -121,8 +120,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.tutorial, menu);
-
         return true;
     }
 
@@ -136,19 +133,6 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         int id = item.getItemId();
-
-        if (id == R.id.tutorial_open)
-        {
-            // Create the Intent for switching to the tutorial Activity
-            // Pass "shopping-list" as the page, so the page is scrolled to the
-            // relevant content to this Activity
-            Intent openTutorial = new Intent(this, TutorialActivity.class);
-            openTutorial.putExtra("page", "shopping-list");
-
-            this.startActivity(openTutorial);
-
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

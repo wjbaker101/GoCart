@@ -111,7 +111,7 @@ public class SearchActivity extends AppCompatActivity
 
     /**
      * Create the menu on the Action Bar.<br>
-     * Adds the "?" button, allowing the user to view the tutorial page.
+     * Adds the sort button to allow to sorting searched products.
      *
      * @param menu The current menu.
      * @return True if the menu was created.
@@ -120,7 +120,6 @@ public class SearchActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.search_sort, menu);
-        getMenuInflater().inflate(R.menu.tutorial, menu);
 
         return true;
     }
@@ -136,19 +135,7 @@ public class SearchActivity extends AppCompatActivity
     {
         int id = item.getItemId();
 
-        if (id == R.id.tutorial_open)
-        {
-            // Create the Intent for switching to the tutorial Activity
-            // Pass "shopping-list" as the page, so the page is scrolled to the
-            // relevant content to this Activity
-            Intent openTutorial = new Intent(this, TutorialActivity.class);
-            openTutorial.putExtra("page", "product-search");
-
-            this.startActivity(openTutorial);
-
-            return true;
-        }
-        else if (id == R.id.sort_products)
+        if (id == R.id.sort_products)
         {
             this.sortProducts();
         }
