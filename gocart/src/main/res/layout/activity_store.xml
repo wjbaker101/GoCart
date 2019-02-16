@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation" />
+        app:menu="@menu/main_navigation" />
 
     <ScrollView
         android:id="@+id/store_info_layout"

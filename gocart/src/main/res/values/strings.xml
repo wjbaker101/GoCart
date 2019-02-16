@@ -6,7 +6,7 @@
     <string name="app_name">GoCart</string>
 
     <!--
-        Labels for each of the bottom navigation icons.
+        Labels for each of the botmain_navigationtion icons.
     -->
     <string name="menu_shopping_list">List</string>
     <string name="menu_grocery_search">Search</string>
@@ -53,5 +53,12 @@
         Labels for the Store Search Actvity.
     -->
     <string name="store_search_dialog_location">View in Map</string>
+
+    <!--
+        Labels for the Credentials Activity.
+    -->
+    <string name="login_confirm">Login</string>
+    <string name="signup_confirm">Create User</string>
+    <string name="title_activity_credentials">Login or Create a New User</string>
 
 </resources>

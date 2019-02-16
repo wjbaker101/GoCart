@@ -27,7 +27,7 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
     private BottomNavigationView dashboardNavigationView;
 
     /**
-     * Allows an activity to create the dashboard navigation.
+     * Allows an activity to create the dashboard main_navigation.
      *
      * @param currentActivity The current activity.
      */
