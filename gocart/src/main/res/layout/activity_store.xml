@@ -16,12 +16,12 @@
         android:clickable="true"
         app:elevation="4dp"
         app:fabSize="mini"
-        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintBottom_toTopOf="@+id/shopping_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/icon_edit" />
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/shopping_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"

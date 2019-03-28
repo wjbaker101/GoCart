@@ -1,27 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.wjbaker.gocart.ui.activities.MainActivity">
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/shopping_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/main_navigation" />
+    tools:context="com.wjbaker.gocart.ui.fragments.shopping.ShoppingListFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/main_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        android:layout_marginBottom="56dp">
+        android:layout_marginBottom="56dp"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,8 +78,8 @@
                         android:id="@+id/checked_visibility_arrow"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:src="@drawable/icon_arrow_up"
-                        android:layout_marginLeft="8dp" />
+                        android:layout_marginLeft="8dp"
+                        android:src="@drawable/icon_arrow_up" />
 
                 </LinearLayout>
 
@@ -118,7 +106,7 @@
                         android:layout_marginLeft="4dp"
                         android:text="@string/list_heading_checked_items_hidden"
                         android:textStyle="italic"
-                        android:visibility="gone"/>
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -133,5 +121,4 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-</android.support.constraint.ConstraintLayout>
+</FrameLayout>

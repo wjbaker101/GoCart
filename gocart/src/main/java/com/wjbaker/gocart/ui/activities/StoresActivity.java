@@ -22,7 +22,7 @@ import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
 public class StoresActivity extends AppCompatActivity
 {
     /**
-     * Stores the bottom navigation dashboard view.
+     * Stores the bottom shopping_navigation dashboard view.
      */
     private DashboardNavigation dashboardNavigation;
 

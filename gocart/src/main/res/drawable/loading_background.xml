@@ -4,15 +4,15 @@
     <!--
         Background colour.
     -->
-    <item android:drawable="@drawable/loading_background_gradient" />
+    <!--<item android:drawable="@drawable/loading_background_gradient" />-->
 
     <!--
         Draw the app's logo at the centre of the screen.
     -->
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/icon_logo_round" />
-    </item>
+    <!--<item>-->
+        <!--<bitmap-->
+            <!--android:gravity="center"-->
+            <!--android:src="@mipmap/icon_logo_round" />-->
+    <!--</item>-->
 
 </layer-list>

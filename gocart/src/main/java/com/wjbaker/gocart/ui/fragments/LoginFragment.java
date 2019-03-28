@@ -57,27 +57,27 @@ public class LoginFragment extends Fragment
 
             if (TextUtils.isEmpty(username))
             {
-                return;
+//                return;
             }
 
             if (TextUtils.isEmpty(password))
             {
-                return;
+//                return;
             }
 
-            this.firebaseAuth.signInWithEmailAndPassword(username, password)
-                    .addOnCompleteListener(this.getActivity(), task ->
-                    {
-                        if (!task.isSuccessful())
-                        {
-                            // Error
-                        }
-                        else
-                        {
+//            this.firebaseAuth.signInWithEmailAndPassword(username, password)
+//                    .addOnCompleteListener(this.getActivity(), task ->
+//                    {
+//                        if (!task.isSuccessful())
+//                        {
+//                            // Error
+//                        }
+//                        else
+//                        {
                             Intent intent = new Intent(this.getContext(), MainActivity.class);
                             this.startActivity(intent);
-                        }
-                    });
+//                        }
+//                    });
         });
 
         return rootView;

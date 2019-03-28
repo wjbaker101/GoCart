@@ -9,7 +9,7 @@
     tools:context="com.wjbaker.gocart.ui.activities.SearchActivity">
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
+        android:id="@+id/shopping_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"

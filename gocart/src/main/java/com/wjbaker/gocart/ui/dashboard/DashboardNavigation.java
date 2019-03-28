@@ -35,7 +35,7 @@ public class DashboardNavigation implements BottomNavigationView.OnNavigationIte
     {
         this.currentActivity = currentActivity;
 
-        dashboardNavigationView = this.currentActivity.findViewById(R.id.navigation);
+        dashboardNavigationView = this.currentActivity.findViewById(R.id.shopping_navigation);
 
         dashboardNavigationView.setOnNavigationItemSelectedListener(this);
 

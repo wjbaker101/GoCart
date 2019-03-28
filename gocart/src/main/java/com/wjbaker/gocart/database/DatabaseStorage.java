@@ -322,13 +322,11 @@ public class DatabaseStorage
         int index = -1;
 
         String name = query.getString(++index);
-        System.out.println(name + " === " + query.getString(index));
 
         double longitude = query.getDouble(++index);
         double latitude = query.getDouble(++index);
 
         boolean mondayIsOpen = query.getString(++index).equals("1");
-        System.out.println(mondayIsOpen + " == " + query.getString(index));
         int mondayOpening = Integer.parseInt(query.getString(++index));
         int mondayClosing = Integer.parseInt(query.getString(++index));
 

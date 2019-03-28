@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/shopping_navigation_list"
+        android:icon="@drawable/icon_list"
+        android:title="@string/menu_shopping_list" />
+
+    <item
+        android:id="@+id/shopping_navigation_search"
+        android:icon="@drawable/icon_search"
+        android:title="@string/menu_grocery_search" />
+
+    <item
+        android:id="@+id/shopping_navigation_stores"
+        android:icon="@drawable/icon_store"
+        android:title="@string/menu_stores" />
+
+</menu>

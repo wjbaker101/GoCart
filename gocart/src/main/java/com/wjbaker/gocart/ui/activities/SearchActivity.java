@@ -45,7 +45,7 @@ import java.util.List;
 public class SearchActivity extends AppCompatActivity
 {
     /**
-     * Stores the bottom navigation dashboard view.
+     * Stores the bottom shopping_navigation dashboard view.
      */
     private DashboardNavigation dashboardNavigation;
 
@@ -151,6 +151,7 @@ public class SearchActivity extends AppCompatActivity
         this.initProductContainer();
 
         this.searchTextBox = findViewById(R.id.textbox_search);
+        this.searchTextBox.requestFocus();
 
         //this.searchItemContainer = findViewById(R.id.search_item_container);
 

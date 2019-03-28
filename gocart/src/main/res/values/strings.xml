@@ -44,7 +44,7 @@
     <string name="product_info_added_label">Add to Shopping List</string>
 
     <string name="store_select_dialog_heading">{store_name}</string>
-    <string name="store_select_dialog_message">Would you like to select this as your main tescoStore?</string>
+    <string name="store_select_dialog_message">Would you like to select this as your main Tesco Store?</string>
 
     <string name="store_firsttime_select_heading">View opening times of your local store.</string>
     <string name="button_add_store_text">Add a Store</string>
@@ -52,7 +52,7 @@
     <!--
         Labels for the Store Search Actvity.
     -->
-    <string name="store_search_dialog_location">View in Map</string>
+    <string name="store_search_dialog_location">View on Map</string>
 
     <!--
         Labels for the Credentials Activity.
@@ -60,5 +60,28 @@
     <string name="login_confirm">Login</string>
     <string name="signup_confirm">Create User</string>
     <string name="title_activity_credentials">Login or Create a New User</string>
+    <string name="title_activity_shopping">GoCart</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+    <!-- Product Search Fragment -->
+
+    <string name="product_search_title">Search</string>
+    <string name="product_search_text_box_hint">Product Name</string>
+
+    <!-- Product Information Dialog -->
+
+    <string name="product_item_info_title">{title}</string>
+    <string name="product_item_info_cost">£{cost}</string>
+    <string name="product_item_info_added">Add to shopping list</string>
+    <string name="product_item_info_amount">Amount:</string>
+    <string name="product_item_info_amount_value">{amount}</string>
+    <string name="product_item_info_edit_amount">Edit</string>
 
 </resources>
