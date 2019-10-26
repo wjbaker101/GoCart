@@ -1,6 +1,6 @@
 package com.wjbaker.gocart.ui.views.store_search_container;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 

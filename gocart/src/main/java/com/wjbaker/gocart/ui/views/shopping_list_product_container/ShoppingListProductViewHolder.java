@@ -2,7 +2,7 @@ package com.wjbaker.gocart.ui.views.shopping_list_product_container;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -17,8 +17,6 @@ import com.wjbaker.gocart.ui.activities.MainActivity;
 import com.wjbaker.gocart.ui.dialogs.ProductInfoDialog;
 import com.wjbaker.gocart.ui.views.product_item.ProductItemShoppingView;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by William on 15/03/2018.

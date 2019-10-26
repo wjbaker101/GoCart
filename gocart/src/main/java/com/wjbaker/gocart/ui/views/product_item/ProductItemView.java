@@ -1,11 +1,10 @@
 package com.wjbaker.gocart.ui.views.product_item;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.support.v7.widget.CardView;
+
+import androidx.cardview.widget.CardView;
 import android.util.AttributeSet;
 
-import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 
 /**

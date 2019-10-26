@@ -1,9 +1,9 @@
 package com.wjbaker.gocart.ui.views.shopping_list_product_container;
 
 import android.graphics.Canvas;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.ItemTouchHelper;
 
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter.ShoppingListProductAdapter;

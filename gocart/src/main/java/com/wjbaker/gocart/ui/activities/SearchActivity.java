@@ -1,18 +1,16 @@
 package com.wjbaker.gocart.ui.activities;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,7 +23,6 @@ import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.request.ProductSearchRequest;
 import com.wjbaker.gocart.request.ProductSortSearchRequest;
 import com.wjbaker.gocart.shopping.Product;
-import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.dashboard.DashboardNavigation;
 import com.wjbaker.gocart.ui.views.search_product_container.SearchProductAdapter;
 

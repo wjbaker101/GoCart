@@ -1,6 +1,6 @@
 package com.wjbaker.gocart.ui.views.search_product_container;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;

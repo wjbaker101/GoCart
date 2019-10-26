@@ -2,7 +2,7 @@ package com.wjbaker.gocart.database;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.support.v4.content.AsyncTaskLoader;
+import androidx.loader.content.AsyncTaskLoader;
 
 import com.wjbaker.gocart.shopping.Product;
 

@@ -1,6 +1,6 @@
 package com.wjbaker.gocart.ui.views.shopping_list_product_container.adapter;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +9,6 @@ import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
 import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.activities.MainActivity;
-import com.wjbaker.gocart.ui.dialogs.ProductInfoDialog;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.ProductMovementHelper;
 import com.wjbaker.gocart.ui.views.shopping_list_product_container.ShoppingListProductViewHolder;
 

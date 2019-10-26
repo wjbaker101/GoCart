@@ -1,19 +1,13 @@
 package com.wjbaker.gocart.ui.views.search_product_container;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
 import com.wjbaker.gocart.R;
 import com.wjbaker.gocart.shopping.Product;
-import com.wjbaker.gocart.shopping.ShoppingList;
 import com.wjbaker.gocart.ui.activities.SearchActivity;
-import com.wjbaker.gocart.ui.views.product_item.ProductItemSearchView;
 
 import java.util.List;
 
