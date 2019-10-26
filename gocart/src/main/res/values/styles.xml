@@ -21,7 +21,7 @@
         Creates a style for the loading screen.
     -->
     <style name="LoadingScreenTheme" parent="AppTheme">
-        <item name="android:windowBackground">@drawable/loading_background</item>
+<!--        <item name="android:windowBackground">@drawable/loading_background</item>-->
     </style>
 
 </resources>
